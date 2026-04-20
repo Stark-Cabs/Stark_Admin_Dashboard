@@ -32,7 +32,8 @@ import {
   LocalTaxiOutlined,
   AttachMoneyTwoTone,
   CurrencyRupee,
-  MessageOutlined
+  MessageOutlined,
+  Shop
 } from '@mui/icons-material';
 import { Link } from "react-router-dom";
 import { useContext, useState } from "react";
@@ -171,6 +172,13 @@ export default function Sidebar({ className, onMenuClick }) {
               <li className={`sidebarListItem ${activeMenu === "fares" ? "active" : ""}`} onClick={() => handleMenuClick("fares")}>
                 <CurrencyRupee className="sidebarIcon" />
                 Fare-Details
+              </li>
+            </Link>
+
+            <Link to="/packages" className="link">
+              <li className={`sidebarListItem ${activeMenu === "packages" ? "active" : ""}`} onClick={() => handleMenuClick("packages")}>
+                <LocalTaxi className="sidebarIcon" />
+                Packages
               </li>
             </Link>
           </ul>

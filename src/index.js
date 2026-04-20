@@ -10,27 +10,30 @@ import { TransactionContextProvider } from './context/transactionContext/Transac
 import { RidesContextProvider } from './context/rideContext/RideContext';
 import { FaresContextProvider } from './context/fareContext/FareContext';
 import { ComplaintContextProvider } from './context/complaintContext/ComplaintContext';
+import { PackagesContextProvider } from './context/packagesContext/PackagesContext';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <ToastContainer position="top-right" autoClose={3000} />
-    <ComplaintContextProvider>
-      <FaresContextProvider>
-        <RidesContextProvider>
-          <TransactionContextProvider>
-            <AdminContextProvider>
-              <DriverContextProvider>
-                <UserContextProvider>
-                  <AuthContextProvider>
-                    <App />
-                  </AuthContextProvider>
-                </UserContextProvider>
-              </DriverContextProvider>
-            </AdminContextProvider>
-          </TransactionContextProvider>
-        </RidesContextProvider>
-      </FaresContextProvider>
-    </ComplaintContextProvider>
+    <PackagesContextProvider>
+      <ComplaintContextProvider>
+        <FaresContextProvider>
+          <RidesContextProvider>
+            <TransactionContextProvider>
+              <AdminContextProvider>
+                <DriverContextProvider>
+                  <UserContextProvider>
+                    <AuthContextProvider>
+                      <App />
+                    </AuthContextProvider>
+                  </UserContextProvider>
+                </DriverContextProvider>
+              </AdminContextProvider>
+            </TransactionContextProvider>
+          </RidesContextProvider>
+        </FaresContextProvider>
+      </ComplaintContextProvider>
+    </PackagesContextProvider>
 
   </React.StrictMode>
 );

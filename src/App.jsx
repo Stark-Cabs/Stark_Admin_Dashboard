@@ -23,6 +23,7 @@ import TransactionList from "./pages/transactionList/transactionList";
 import RideList from "./pages/rideList/RideList";
 import FareList from "./pages/fareList/FareList";
 import ComplaintList from "./pages/complaintsList/ComplaintList";
+import PackageList from "./pages/packageList/PackageList";
 
 
 function Layout() {
@@ -48,7 +49,6 @@ function App() {
   // ... (Your existing App component code)
   useEffect(() => {
     console.log('API URL:', process.env.REACT_APP_API_URL);
-    console.log('API URL DRIVER:', process.env.REACT_APP_API_URL_DRIVER);
     console.log('REACT_APP_SOCKET_URL:', process.env.REACT_APP_SOCKET_URL);
     console.log('REACT_APP_GOOGLE_CLOUD_API_KEY:', process.env.REACT_APP_GOOGLE_CLOUD_API_KEY);
     console.log('REACT_APP_GOOGLE_MAP_ID:', process.env.REACT_APP_GOOGLE_MAP_ID);
@@ -76,6 +76,7 @@ function App() {
             <Route path="/rides" element={<RideList />} />
             <Route path="/fares" element={<FareList />} />
             <Route path="/complaints" element={<ComplaintList />} />
+            <Route path="/packages" element={<PackageList />} />
           </Route>
         ) : (
           <Route path="*" element={<Navigate to="/login" />} />

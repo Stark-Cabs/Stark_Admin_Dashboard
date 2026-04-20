@@ -52,14 +52,13 @@ export default function TransactionList() {
     return (
         <div className="container">
 
-            <div>
+            <div style={{flex:4}}>
 
                 <FeaturedInfo number={6} />
                 <DataTable
                     title="Transactions"
                     data={transactions || []}
                     columns={columns}
-                    showCreate={false}
                     buttonName={'View'}
                     onButtonClick={handleEditClick}
                     searchPlaceholder="Search by name, email, or phone..."
