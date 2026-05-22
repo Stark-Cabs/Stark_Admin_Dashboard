@@ -1,16 +1,20 @@
 import "./userList.css";
 import { useContext, useEffect, useMemo } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
 import { UserContext } from "../../context/userContext/UserContext";
 import { getUsers } from "../../context/userContext/apiCalls";
+
 import Spinner from "../../components/spinner/Spinner";
 import Chart from "../../components/chart/Chart";
 import DataTable from "../../components/dataTable/DataTable";
+
 import useUserStats from "../../hooks/stats/user/getUserStats";
 
 export default function UserList() {
   const { users, dispatch } = useContext(UserContext);
   const { userStats, loading } = useUserStats();
+
   const navigate = useNavigate();
 
   // ✅ Fetch users
@@ -18,7 +22,14 @@ export default function UserList() {
     getUsers(dispatch);
   }, [dispatch]);
 
-  // ✅ Define columns for the table
+  // ✅ Latest users first
+  const sortedUsers = useMemo(() => {
+    return [...users].sort(
+      (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+    );
+  }, [users]);
+
+  // ✅ Table columns
   const columns = useMemo(
     () => [
       {
@@ -35,14 +46,60 @@ export default function UserList() {
           />
         ),
       },
-      { Header: "Name", accessor: "name" },
-      { Header: "Email", accessor: "email" },
-      { Header: "Phone", accessor: "phone_number" },
-      { Header: "Total Rides", accessor: "totalRides" },
+
+      {
+        Header: "Name",
+        accessor: "name",
+      },
+
+      {
+        Header: "Email",
+        accessor: "email",
+      },
+
+      {
+        Header: "Phone",
+        accessor: "phone_number",
+      },
+
+      {
+        Header: "Total Rides",
+        accessor: "totalRides",
+      },
+
       {
         Header: "Ratings",
         accessor: "ratings",
-        Cell: ({ value }) => (value ? `⭐ ${value.toFixed(1)}` : "N/A"),
+        Cell: ({ value }) =>
+          value ? `⭐ ${value.toFixed(1)}` : "N/A",
+      },
+
+      // ✅ Created On
+      {
+        Header: "Created On",
+        accessor: "createdAt",
+        Cell: ({ value }) =>
+          value
+            ? new Date(value).toLocaleDateString("en-IN", {
+                day: "2-digit",
+                month: "short",
+                year: "numeric",
+              })
+            : "N/A",
+      },
+
+      // ✅ Updated On
+      {
+        Header: "Updated On",
+        accessor: "updatedAt",
+        Cell: ({ value }) =>
+          value
+            ? new Date(value).toLocaleDateString("en-IN", {
+                day: "2-digit",
+                month: "short",
+                year: "numeric",
+              })
+            : "N/A",
       },
     ],
     []
@@ -51,21 +108,29 @@ export default function UserList() {
   return (
     <div className="userList">
       <h2 className="pageTitle">Users</h2>
-      <Chart data={userStats} title="User Analytics" grid dataKey="New User" />
+
+      <Chart
+        data={userStats}
+        title="User Analytics"
+        grid
+        dataKey="New User"
+      />
 
       {loading ? (
         <Spinner />
       ) : (
         <DataTable
           title="Users"
-          data={users}
+          data={sortedUsers} // ✅ latest first
           columns={columns}
           showCreate={false}
           searchPlaceholder="Search users by name, email, or phone..."
-          buttonName={"View"}
-          filterOptions={[]} // No filters
+          buttonName="View"
+          filterOptions={[]}
           onButtonClick={(user) =>
-            navigate(`/user/${user._id}`, { state: { userId: user._id } })
+            navigate(`/user/${user._id}`, {
+              state: { userId: user._id },
+            })
           }
         />
       )}

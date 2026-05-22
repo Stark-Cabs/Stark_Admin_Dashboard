@@ -1,27 +1,34 @@
 import "./driverList.css";
-import { DeleteOutline, Search } from '@mui/icons-material';
-import { Link, useNavigate } from "react-router-dom";
-import { useContext, useEffect, useMemo, useState } from "react";
+import { useContext, useEffect, useMemo } from "react";
+import { useNavigate } from "react-router-dom";
+
 import Spinner from "../../components/spinner/Spinner";
-import axiosInstance from "../../api/axiosInstance";
-import Chart from "../../components/chart/Chart";
+import DataTable from "../../components/dataTable/DataTable";
+
 import { DriverContext } from "../../context/driverContext/DriverContext";
 import { getDrivers } from "../../context/driverContext/apiCalls";
+
 import { toast } from "react-toastify";
-import { useTable, usePagination, useSortBy } from "react-table";
-import DataTable from "../../components/dataTable/DataTable";
 
 export default function NonApprovedDriverList() {
   const { drivers, dispatch } = useContext(DriverContext);
-  const [search, setSearch] = useState("");
-  const [filter, setFilter] = useState("all");
+
   const navigate = useNavigate();
 
   useEffect(() => {
     getDrivers(dispatch, toast);
   }, [dispatch]);
 
-  // ✅ Columns for DataTable
+  // ✅ Non-approved + latest first
+  const nonApprovedDrivers = useMemo(() => {
+    return drivers
+      .filter((d) => d.is_approved === false)
+      .sort(
+        (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+      );
+  }, [drivers]);
+
+  // ✅ Columns
   const columns = useMemo(
     () => [
       {
@@ -44,40 +51,93 @@ export default function NonApprovedDriverList() {
           />
         ),
       },
-      { Header: "Name", accessor: "name" },
-      { Header: "Email", accessor: "email" },
-      { Header: "Phone", accessor: "phone_number" },
-      { Header: "Country", accessor: "country" },
+
+      {
+        Header: "Name",
+        accessor: "name",
+      },
+
+      {
+        Header: "Email",
+        accessor: "email",
+      },
+
+      {
+        Header: "Phone",
+        accessor: "phone_number",
+      },
+
+      {
+        Header: "Country",
+        accessor: "country",
+      },
+
       {
         Header: "Vehicle",
         accessor: "vehicle_type",
         Cell: ({ row }) =>
-          `${row.original.vehicle_type} (${row.original.vehicle_color || "N/A"})`,
+          `${row.original.vehicle_type} (${
+            row.original.vehicle_color || "N/A"
+          })`,
       },
-      { Header: "Reg No", accessor: "registration_number" },
-      { Header: "Capacity", accessor: "capacity" },
+
+      {
+        Header: "Reg No",
+        accessor: "registration_number",
+      },
+
+      {
+        Header: "Capacity",
+        accessor: "capacity",
+      },
+
       {
         Header: "Ratings",
         accessor: "ratings",
-        Cell: ({ value }) => (value ? `⭐ ${value.toFixed(1)}` : "N/A"),
-      }
+        Cell: ({ value }) =>
+          value ? `⭐ ${value.toFixed(1)}` : "N/A",
+      },
+
+      // ✅ Created On
+      {
+        Header: "Created On",
+        accessor: "createdAt",
+        Cell: ({ value }) =>
+          value
+            ? new Date(value).toLocaleDateString("en-IN", {
+                day: "2-digit",
+                month: "short",
+                year: "numeric",
+              })
+            : "N/A",
+      },
+
+      // ✅ Updated On
+      {
+        Header: "Updated On",
+        accessor: "updatedAt",
+        Cell: ({ value }) =>
+          value
+            ? new Date(value).toLocaleDateString("en-IN", {
+                day: "2-digit",
+                month: "short",
+                year: "numeric",
+              })
+            : "N/A",
+      },
     ],
-    [navigate]
+    []
   );
 
-  // ✅ Use the generic DataTable
   return (
     <div className="driverList">
-      {/* <h2 className="pageTitle">Non-Approved Drivers</h2> */}
-
       <DataTable
         title="Non-Approved Drivers"
-        data={drivers.filter((d) => d.is_approved == false)} // keep only non-approved
+        data={nonApprovedDrivers}
         columns={columns}
         showCreate={false}
         searchPlaceholder="Search drivers..."
         showFilter={true}
-
         filterOptions={[
           "All",
           "License Expired",
@@ -85,7 +145,7 @@ export default function NonApprovedDriverList() {
           "Both Expired",
         ]}
         filterKey={["status"]}
-        buttonName={'Edit'}
+        buttonName={"Edit"}
         onButtonClick={(driver) =>
           navigate(`/driver/${driver._id}`, {
             state: { driverId: driver._id },
