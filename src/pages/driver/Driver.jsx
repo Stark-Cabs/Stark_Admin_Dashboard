@@ -3,7 +3,6 @@ import {
     LocationSearching,
     MailOutline,
     Phone,
-    LocalTaxi,
     Palette,
     Approval,
     Person,
@@ -23,6 +22,16 @@ import {
     Timelapse,
     Description,
     CurrencyRupee,
+    DirectionsCar,
+    LocalTaxi,
+    BrandingWatermark,
+    ConfirmationNumber,
+    AirlineSeatReclineNormal,
+    Badge,
+    Security,
+    PhoneAndroid,
+    Memory,
+    Android
 } from "@mui/icons-material";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import "./driver.css";
@@ -319,46 +328,123 @@ export default function Driver() {
                             </div>
 
                             <h3 className="driverInfoTitle">Device Details</h3>
+
                             <div className="driverInfoItem">
-                                <LocalTaxi className="driverInfoIcon" />
-                                <span className="driverInfoText">Brand: {driver?.activeDevice?.brand}</span>
+                                <PhoneAndroid className="driverInfoIcon" />
+                                <span className="driverInfoText">
+                                    Brand: {driver?.activeDevice?.brand || "N/A"}
+                                </span>
                             </div>
+
                             <div className="driverInfoItem">
-                                <Palette className="driverInfoIcon" />
-                                <span className="driverInfoText">Model: {driver?.activeDevice?.model}</span>
+                                <Memory className="driverInfoIcon" />
+                                <span className="driverInfoText">
+                                    Model: {driver?.activeDevice?.model || "N/A"}
+                                </span>
                             </div>
+
                             <div className="driverInfoItem">
-                                <Palette className="driverInfoIcon" />
-                                <span className="driverInfoText">OS Name: {driver?.activeDevice?.osName}</span>
+                                <Android className="driverInfoIcon" />
+                                <span className="driverInfoText">
+                                    OS Name: {driver?.activeDevice?.osName || "N/A"}
+                                </span>
                             </div>
+
                             <div className="driverInfoItem">
-                                <Person className="driverInfoIcon" />
-                                <span className="driverInfoText">OS Build: {driver?.activeDevice?.osBuildId}</span>
+                                <Badge className="driverInfoIcon" />
+                                <span className="driverInfoText">
+                                    OS Build: {driver?.activeDevice?.osBuildId || "N/A"}
+                                </span>
                             </div>
 
                             <h3 className="driverInfoTitle">Vehicle Details</h3>
+
+                            <div className="driverInfoItem">
+                                <DirectionsCar className="driverInfoIcon" />
+                                <span className="driverInfoText">
+                                    Vehicle Type: {driver.vehicle_type || "N/A"}
+                                </span>
+                            </div>
+
+                            <div className="driverInfoItem">
+                                <BrandingWatermark className="driverInfoIcon" />
+                                <span className="driverInfoText">
+                                    Brand: {driver.vehicle_brand || "N/A"}
+                                </span>
+                            </div>
+
                             <div className="driverInfoItem">
                                 <LocalTaxi className="driverInfoIcon" />
-                                <span className="driverInfoText">Registration: {driver.registration_number}</span>
+                                <span className="driverInfoText">
+                                    Model: {driver.vehicle_model || "N/A"}
+                                </span>
                             </div>
+
+                            <div className="driverInfoItem">
+                                <ConfirmationNumber className="driverInfoIcon" />
+                                <span className="driverInfoText">
+                                    Registration No: {driver.registration_number || "N/A"}
+                                </span>
+                            </div>
+
                             <div className="driverInfoItem">
                                 <CalendarToday className="driverInfoIcon" />
                                 <span className="driverInfoText">
-                                    Reg. Date: {driver.registration_date ? new Date(driver.registration_date).toLocaleString("en-GB", {
-                                        day: "2-digit",
-                                        month: "2-digit",
-                                        year: "numeric"
-                                    }) : "NA"}
+                                    Registration Date:{" "}
+                                    {driver.registration_date
+                                        ? new Date(driver.registration_date).toLocaleDateString("en-GB")
+                                        : "N/A"}
                                 </span>
                             </div>
+
+                            {/* <div className="driverInfoItem">
+                                <CreditCard className="driverInfoIcon" />
+                                <span className="driverInfoText">
+                                    Driving License: {driver.driving_license || "N/A"}
+                                </span>
+                            </div>
+
+                            <div className="driverInfoItem">
+                                <CalendarToday className="driverInfoIcon" />
+                                <span className="driverInfoText">
+                                    License Expiry:{" "}
+                                    {driver.license_expiry
+                                        ? new Date(driver.license_expiry).toLocaleDateString("en-GB")
+                                        : "N/A"}
+                                </span>
+                            </div> */}
+
                             <div className="driverInfoItem">
                                 <Palette className="driverInfoIcon" />
-                                <span className="driverInfoText">Color: {driver.vehicle_color || "N/A"}</span>
+                                <span className="driverInfoText">
+                                    Vehicle Color: {driver.vehicle_color || "N/A"}
+                                </span>
                             </div>
+
                             <div className="driverInfoItem">
-                                <Person className="driverInfoIcon" />
-                                <span className="driverInfoText">Capacity: {driver.capacity || "N/A"}</span>
+                                <AirlineSeatReclineNormal className="driverInfoIcon" />
+                                <span className="driverInfoText">
+                                    Capacity: {driver.capacity || "N/A"}
+                                </span>
                             </div>
+
+                            {/* <div className="driverInfoItem">
+                                <Security className="driverInfoIcon" />
+                                <span className="driverInfoText">
+                                    Insurance Number: {driver.insurance_number || "N/A"}
+                                </span>
+                            </div>
+
+                            <div className="driverInfoItem">
+                                <CalendarToday className="driverInfoIcon" />
+                                <span className="driverInfoText">
+                                    Insurance Expiry:{" "}
+                                    {driver.insurance_expiry
+                                        ? new Date(driver.insurance_expiry).toLocaleDateString("en-GB")
+                                        : "N/A"}
+                                </span> */}
+                            {/* </div> */}
+
                             <h3 className="driverInfoTitle">Documents</h3>
 
                             {/* Driving License */}
