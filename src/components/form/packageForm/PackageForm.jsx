@@ -34,6 +34,23 @@ export default function PackageFormModal({ show, onClose, onSubmit, onDelete, in
         return `${get("year")}-${get("month")}-${get("day")}T${get("hour")}:${get("minute")}`;
     };
 
+    const convertISTToUTC = (dateTime) => {
+        if (!dateTime) return "";
+
+        const [date, time] = dateTime.split("T");
+        const [year, month, day] = date.split("-").map(Number);
+        const [hours, minutes] = time.split(":").map(Number);
+
+        // Treat the selected date/time as IST (+05:30)
+        const utcDate = new Date(
+            Date.UTC(year, month - 1, day, hours, minutes)
+        );
+
+        utcDate.setMinutes(utcDate.getMinutes() - 330);
+
+        return utcDate.toISOString();
+    };
+    
     useEffect(() => {
         if (initialData) {
             setFormData({
@@ -58,13 +75,15 @@ export default function PackageFormModal({ show, onClose, onSubmit, onDelete, in
 
     const handleSubmit = (e) => {
         e.preventDefault();
+
         const payload = {
             ...formData,
-            startDate: formatDateForInput(formData.startDate),
-            endDate: formatDateForInput(formData.endDate),
+            startDate: convertISTToUTC(formData.startDate),
+            endDate: convertISTToUTC(formData.endDate),
         };
 
-        console.log(payload)
+        console.log("Selected IST:", formData.startDate);
+        console.log("UTC being sent:", payload.startDate);
 
         onSubmit(payload);
     };
