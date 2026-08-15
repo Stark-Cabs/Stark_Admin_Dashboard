@@ -3,42 +3,97 @@
 
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#000000" />
-  <meta name="description" content="Stark Admin Dashboard" />
 
+  <!-- Responsive -->
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Primary SEO -->
+  <title>Stark Admin Dashboard | Management Portal</title>
+  <meta name="description"
+    content="Stark Admin Dashboard is a secure management portal for monitoring and managing Stark services, users, drivers, bookings, and operational data." />
+
+  <meta name="keywords"
+    content="Stark Admin Dashboard, Stark Dashboard, admin portal, management dashboard, booking management, driver management" />
+
+  <meta name="author" content="Stark" />
+
+  <!-- Search Engine Control -->
+  <!-- Admin dashboards generally should NOT appear in search results -->
+  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet" />
+  <meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet" />
+
+  <!-- Canonical -->
+  <link rel="canonical" href="https://admin.starkcabs.in/" />
+
+  <!-- Theme -->
+  <!-- <meta name="theme-color" content="#000000" /> -->
+  <!-- <meta name="color-scheme" content="light dark" /> -->
+
+  <!-- Favicon -->
   <link rel="icon" type="image/png" sizes="32x32" href="%PUBLIC_URL%/assets/images/logo/IconOnly.png" />
 
   <link rel="icon" type="image/png" sizes="16x16" href="%PUBLIC_URL%/assets/images/logo/IconOnly.png" />
 
-  <link rel="apple-touch-icon" href="%PUBLIC_URL%/assets/images/logo/IconOnly.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="%PUBLIC_URL%/assets/images/logo/IconOnly.png" />
 
+  <!-- Open Graph / Facebook / WhatsApp / LinkedIn -->
+  <meta property="og:type" content="website" />
 
+  <meta property="og:title" content="Stark Admin Dashboard" />
+
+  <meta property="og:description"
+    content="Secure Stark management portal for managing users, drivers, bookings, and operational data." />
+
+  <meta property="og:url" content="https://admin.starkcabs.in/" />
+
+  <meta property="og:site_name" content="Stark Admin Dashboard" />
+
+  <meta property="og:image" content="https://admin.starkcabs.in/assets/images/logo/IconOnly.png" />
+
+  <meta property="og:image:alt" content="Stark Admin Dashboard" />
+
+  <meta property="og:image:type" content="image/png" />
+
+  <!-- Twitter / X -->
+  <meta name="twitter:card" content="summary" />
+
+  <meta name="twitter:title" content="Stark Admin Dashboard" />
+
+  <meta name="twitter:description"
+    content="Secure Stark management portal for managing users, drivers, bookings, and operational data." />
+
+  <meta name="twitter:image" content="https://admin.starkcabs.in/assets/images/logo/IconOnly.png" />
+
+  <meta name="twitter:image:alt" content="Stark Admin Dashboard" />
 
   <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
   <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@200;300;400;600;700;900&display=swap"
     rel="stylesheet" />
 
+  <!-- Global Styles -->
   <style>
     * {
-      font-family: 'Source Sans Pro', sans-serif;
+      font-family: "Source Sans Pro", sans-serif;
       margin: 0;
     }
   </style>
-
-  <title>Stark Admin Dashboard</title>
 </head>
 
 <body>
-  <noscript>You need to enable JavaScript to run this app.</noscript>
+
+  <noscript>
+    You need to enable JavaScript to run the Stark Admin Dashboard.
+  </noscript>
+
   <div id="root"></div>
-</body>
-<script async
-  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDZ3-iM9suiGVssgSjEdApgQXpXmDgvVAc&libraries=marker">
+
+  <!-- Google Maps -->
+  <script async src="https://maps.googleapis.com/maps/api/js?key=%REACT_APP_GOOGLE_CLOUD_API_KEY%&libraries=marker">
   </script>
-<!-- <script async
-  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDZ3-iM9suiGVssgSjEdApgQXpXmDgvVAc&callback=initMap&libraries=marker">
-  </script> -->
+
+</body>
 
 </html>

@@ -18,13 +18,20 @@ export default function PackageFormModal({ show, onClose, onSubmit, onDelete, in
 
         const d = new Date(date);
 
-        const year = d.getFullYear();
-        const month = String(d.getMonth() + 1).padStart(2, "0");
-        const day = String(d.getDate()).padStart(2, "0");
-        const hours = String(d.getHours()).padStart(2, "0");
-        const minutes = String(d.getMinutes()).padStart(2, "0");
+        const parts = new Intl.DateTimeFormat("en-CA", {
+            timeZone: "Asia/Kolkata",
+            year: "numeric",
+            month: "2-digit",
+            day: "2-digit",
+            hour: "2-digit",
+            minute: "2-digit",
+            hourCycle: "h23",
+        }).formatToParts(d);
 
-        return `${year}-${month}-${day}T${hours}:${minutes}`;
+        const get = (type) =>
+            parts.find((part) => part.type === type)?.value;
+
+        return `${get("year")}-${get("month")}-${get("day")}T${get("hour")}:${get("minute")}`;
     };
 
     useEffect(() => {
