@@ -64,7 +64,9 @@ export default function PackageFormModal({ show, onClose, onSubmit, onDelete, in
             endDate: formatDateForInput(formData.endDate),
         };
 
-        onSubmit(payload);
+        console.log(payload)
+
+        // onSubmit(payload);
     };
 
 
