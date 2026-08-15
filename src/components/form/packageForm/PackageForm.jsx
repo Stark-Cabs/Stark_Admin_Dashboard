@@ -66,7 +66,7 @@ export default function PackageFormModal({ show, onClose, onSubmit, onDelete, in
 
         console.log(payload)
 
-        // onSubmit(payload);
+        onSubmit(payload);
     };
 
 
