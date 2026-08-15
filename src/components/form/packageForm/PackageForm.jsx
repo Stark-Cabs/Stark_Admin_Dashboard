@@ -58,7 +58,13 @@ export default function PackageFormModal({ show, onClose, onSubmit, onDelete, in
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        onSubmit(formData);
+        const payload = {
+            ...formData,
+            startDate: formatDateForInput(formData.startDate),
+            endDate: formatDateForInput(formData.endDate),
+        };
+
+        onSubmit(payload);
     };
 
 
