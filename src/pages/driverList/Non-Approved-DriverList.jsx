@@ -19,16 +19,12 @@ export default function NonApprovedDriverList() {
     getDrivers(dispatch, toast);
   }, [dispatch]);
 
-  // ✅ Non-approved + latest first
   const nonApprovedDrivers = useMemo(() => {
     return drivers
       .filter((d) => d.is_approved === false)
-      .sort(
-        (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
-      );
+      .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
   }, [drivers]);
 
-  // ✅ Columns
   const columns = useMemo(
     () => [
       {
@@ -39,90 +35,52 @@ export default function NonApprovedDriverList() {
             src={
               value && value.trim() !== ""
                 ? value
-                : "https://th.bing.com/th?id=OIP.EwG6x9w6RngqsKrPJYxULAHaHa"
+                : "/assets/images/logo/IconOnly.png"
             }
             alt="driver"
-            style={{
-              width: "40px",
-              height: "40px",
-              borderRadius: "50%",
-              objectFit: "cover",
-            }}
+            className="tableImg"
           />
         ),
       },
-
-      {
-        Header: "Name",
-        accessor: "name",
-      },
-
-      {
-        Header: "Email",
-        accessor: "email",
-      },
-
-      {
-        Header: "Phone",
-        accessor: "phone_number",
-      },
-
-      {
-        Header: "Country",
-        accessor: "country",
-      },
-
+      { Header: "Name", accessor: "name" },
+      { Header: "Email", accessor: "email" },
+      { Header: "Phone", accessor: "phone_number" },
+      { Header: "Country", accessor: "country" },
       {
         Header: "Vehicle",
         accessor: "vehicle_type",
         Cell: ({ row }) =>
-          `${row.original.vehicle_type} (${
-            row.original.vehicle_color || "N/A"
-          })`,
+          `${row.original.vehicle_type} (${row.original.vehicle_color || "N/A"})`,
       },
-
-      {
-        Header: "Reg No",
-        accessor: "registration_number",
-      },
-
-      {
-        Header: "Capacity",
-        accessor: "capacity",
-      },
-
+      { Header: "Reg No", accessor: "registration_number" },
+      { Header: "Capacity", accessor: "capacity" },
       {
         Header: "Ratings",
         accessor: "ratings",
-        Cell: ({ value }) =>
-          value ? `⭐ ${value.toFixed(1)}` : "N/A",
+        Cell: ({ value }) => (value ? `⭐ ${value.toFixed(1)}` : "N/A"),
       },
-
-      // ✅ Created On
       {
         Header: "Created On",
         accessor: "createdAt",
         Cell: ({ value }) =>
           value
             ? new Date(value).toLocaleDateString("en-IN", {
-                day: "2-digit",
-                month: "short",
-                year: "numeric",
-              })
+              day: "2-digit",
+              month: "short",
+              year: "numeric",
+            })
             : "N/A",
       },
-
-      // ✅ Updated On
       {
         Header: "Updated On",
         accessor: "updatedAt",
         Cell: ({ value }) =>
           value
             ? new Date(value).toLocaleDateString("en-IN", {
-                day: "2-digit",
-                month: "short",
-                year: "numeric",
-              })
+              day: "2-digit",
+              month: "short",
+              year: "numeric",
+            })
             : "N/A",
       },
     ],
@@ -130,7 +88,7 @@ export default function NonApprovedDriverList() {
   );
 
   return (
-    <div className="driverList">
+    <div className="driverLists">
       <DataTable
         title="Non-Approved Drivers"
         data={nonApprovedDrivers}
@@ -138,12 +96,7 @@ export default function NonApprovedDriverList() {
         showCreate={false}
         searchPlaceholder="Search drivers..."
         showFilter={true}
-        filterOptions={[
-          "All",
-          "License Expired",
-          "Insurance Expired",
-          "Both Expired",
-        ]}
+        filterOptions={["All", "License Expired", "Insurance Expired", "Both Expired"]}
         filterKey={["status"]}
         buttonName={"Edit"}
         onButtonClick={(driver) =>

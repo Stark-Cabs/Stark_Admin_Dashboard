@@ -3,8 +3,9 @@ import DataTable from "../../components/dataTable/DataTable";
 import { AdminContext } from "../../context/adminContext/AdminContext";
 import { getAdmins } from "../../context/adminContext/apiCalls";
 import { toast } from "react-toastify";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/authContext/AuthContext";
+import "./adminList.css";
 
 export default function AdminList() {
   const { admins, dispatch } = useContext(AdminContext);
@@ -25,22 +26,29 @@ export default function AdminList() {
             src={
               value && value.trim() !== ""
                 ? value
-                : "https://th.bing.com/th?id=OIP.EwG6x9w6RngqsKrPJYxULAHaHa"
+                : "/assets/images/logo/IconOnly.png"
             }
             alt="profile"
-            style={{
-              width: "40px",
-              height: "40px",
-              borderRadius: "50%",
-              objectFit: "cover",
-            }}
+            className="tableImg"
           />
         ),
       },
       { Header: "Name", accessor: "name" },
       { Header: "Email", accessor: "email" },
-      { Header: "Role", accessor: "role" },
-      { Header: "Status", accessor: "status" },
+      {
+        Header: "Role",
+        accessor: "role",
+        Cell: ({ value }) => (
+          <span className={`roleTag role-${value?.toLowerCase()}`}>{value}</span>
+        ),
+      },
+      {
+        Header: "Status",
+        accessor: "status",
+        Cell: ({ value }) => (
+          <span className={`statusTag status-${value?.toLowerCase()}`}>{value}</span>
+        ),
+      },
       { Header: "Phone", accessor: "phone" },
     ],
     []
@@ -51,18 +59,20 @@ export default function AdminList() {
   };
 
   return (
-    <DataTable
-      title="Admins"
-      data={admins || []}
-      columns={columns}
-      showCreate={user?.role === "SuperAdmin"}
-      onCreateClick={() => navigate("/newAdmin")}
-      buttonName={'View'}
-      onButtonClick={handleEditClick}
-      searchPlaceholder="Search by name, email, or phone..."
-      showFilter={true}
-      filterOptions={["SuperAdmin", "Admin", "Moderator", "Active", "Inactive", "Deleted"]}
-      filterKey="role"
-    />
+    <div className="adminList">
+      <DataTable
+        title="Admins"
+        data={admins || []}
+        columns={columns}
+        showCreate={user?.role === "SuperAdmin"}
+        onCreateClick={() => navigate("/newAdmin")}
+        buttonName={'View'}
+        onButtonClick={handleEditClick}
+        searchPlaceholder="Search by name, email, or phone..."
+        showFilter={true}
+        filterOptions={["SuperAdmin", "Admin", "Moderator", "Active", "Inactive", "Deleted"]}
+        filterKey="role"
+      />
+    </div>
   );
 }

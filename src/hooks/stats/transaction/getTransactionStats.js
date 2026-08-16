@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import axiosInstance from "../../../api/axiosInstance";
 
-export default function useDriverStats() {
+export default function useTransactionStats() {
     const MONTHS = useMemo(
         () => [
             "Jan", "Feb", "Mar", "Apr", "May", "Jun",
@@ -10,7 +10,7 @@ export default function useDriverStats() {
         []
     );
 
-    const [driverStats, setDriverStats] = useState([]);
+    const [transactionStats, setTransactionStats] = useState([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -19,14 +19,15 @@ export default function useDriverStats() {
                 setLoading(true);
 
                 // Fetch Drivers
-                const driverResponse = await axiosInstance.get(`/admin/drivers/stats`);
-                const sortedDrivers = driverResponse.data.sort((a, b) => a._id - b._id);
-                setDriverStats(
-                    sortedDrivers.map((item) => ({
+                const transactionResponse = await axiosInstance.get(`/admin/transactions/stats`);
+                const sortedTransactions = transactionResponse.data.sort((a, b) => a._id - b._id);
+                setTransactionStats(
+                    sortedTransactions.map((item) => ({
                         name: MONTHS[item._id - 1],
-                        "New Drivers": item.total,
+                        "New Transactions": item.total,
                     }))
                 );
+                
             } catch (error) {
                 console.error("Error fetching stats:", error);
             } finally {
@@ -37,5 +38,5 @@ export default function useDriverStats() {
         fetchStats();
     }, [MONTHS]);
 
-    return { driverStats, loading };
+    return { transactionStats, loading };
 }

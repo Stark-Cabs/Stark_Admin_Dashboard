@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import "./featuredInfo.css";
 import ArrowDownward from "@mui/icons-material/ArrowDownward";
 import ArrowUpward from "@mui/icons-material/ArrowUpward";
+import { CurrencyRupeeRounded, ReceiptLongRounded } from "@mui/icons-material";
 import axiosInstance from "../../api/axiosInstance";
 
 export default function FeaturedInfo({ number }) {
@@ -28,22 +29,24 @@ export default function FeaturedInfo({ number }) {
     fetchData();
   }, []);
 
-  const renderCard = (title, value, change = null) => (
+  const renderCard = (title, value, isRevenue, change = null) => (
     <div className="featuredItem" key={title}>
       <div className="featuredTitleContainer">
-        <span className="featuredTitle">{title}</span>
-        {change !== null && <span className="featuredSub">Compared to last month</span>}
+        <div className="featuredTitleGroup">
+          <span className={`featuredIconChip ${isRevenue ? "featuredIconChip--green" : "featuredIconChip--blue"}`}>
+            {isRevenue ? <CurrencyRupeeRounded /> : <ReceiptLongRounded />}
+          </span>
+          <span className="featuredTitle">{title}</span>
+        </div>
+        {change !== null && <span className="featuredSub">vs last month</span>}
       </div>
+
       <div className="featuredMoneyContainer">
         <span className="featuredMoney">{value}</span>
         {change !== null && (
-          <span className="featuredMoneyRate">
-            {change.toFixed(1)}%
-            {change >= 0 ? (
-              <ArrowUpward className="featuredIcon" />
-            ) : (
-              <ArrowDownward className="featuredIcon negative" />
-            )}
+          <span className={`featuredMoneyRate ${change >= 0 ? "up" : "down"}`}>
+            {change >= 0 ? <ArrowUpward className="featuredIcon" /> : <ArrowDownward className="featuredIcon" />}
+            {Math.abs(change).toFixed(1)}%
           </span>
         )}
       </div>
@@ -51,22 +54,20 @@ export default function FeaturedInfo({ number }) {
   );
 
   const transactionStats = [
-    { title: "Revenue This Month", value: `₹${data.revenueThisMonth}`, change: data.revenueChange },
-    { title: "Transactions This Month", value: data.transactionsThisMonth, change: data.transactionsChange },
-    { title: "Revenue Last Month", value: `₹${data.revenueLastMonth}` },
-    { title: "Transactions Last Month", value: data.transactionsLastMonth },
-    { title: "Total Revenue", value: `₹${data.totalRevenue}` },
-    { title: "Total Transactions", value: data.totalTransactions },
+    { title: "Revenue This Month", value: `₹${data.revenueThisMonth}`, isRevenue: true, change: data.revenueChange },
+    { title: "Transactions This Month", value: data.transactionsThisMonth, isRevenue: false, change: data.transactionsChange },
+    { title: "Revenue Last Month", value: `₹${data.revenueLastMonth}`, isRevenue: true },
+    { title: "Transactions Last Month", value: data.transactionsLastMonth, isRevenue: false },
+    { title: "Total Revenue", value: `₹${data.totalRevenue}`, isRevenue: true },
+    { title: "Total Transactions", value: data.totalTransactions, isRevenue: false },
   ];
 
-  // If number = 4 → first 4 cards
-  // If number = 6 → all 6 cards
   const displayedStats = transactionStats.slice(0, number);
 
   return (
     <div className="featured">
       {displayedStats.map((item) =>
-        renderCard(item.title, item.value, item.change ?? null)
+        renderCard(item.title, item.value, item.isRevenue, item.change ?? null)
       )}
     </div>
   );

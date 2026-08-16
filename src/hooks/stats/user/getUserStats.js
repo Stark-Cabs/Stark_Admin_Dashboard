@@ -24,7 +24,7 @@ export default function useUserStats() {
         setUserStats(
           sortedUsers.map((item) => ({
             name: MONTHS[item._id - 1],
-            "New User": item.total,
+            "New Users": item.total,
           }))
         );
 

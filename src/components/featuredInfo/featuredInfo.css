@@ -1,87 +1,93 @@
 .featured {
   width: 100%;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-  gap: 20px;
-  padding: 10px;
-  box-sizing: border-box;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
 }
 
 .featuredItem {
-  background-color: #fff;
+  background: var(--stark-surface);
+  border: 1px solid var(--stark-border);
   padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+  border-radius: 14px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: box-shadow 0.15s ease, transform 0.15s ease;
 }
 
-.featuredTitleContainer{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
 .featuredItem:hover {
-  transform: translateY(-4px);
-  box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 8px 20px rgba(16, 24, 40, 0.08);
+  transform: translateY(-2px);
 }
 
-.featuredTitle {
-  font-size: 18px;
-  font-weight: 600;
-  color: #333;
-}
-
-.featuredMoneyContainer {
-  margin: 12px 0;
+.featuredTitleContainer {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
+.featuredTitleGroup {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.featuredIconChip {
+  width: 26px;
+  height: 26px;
+  border-radius: 7px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.featuredIconChip svg { font-size: 15px !important; }
+
+.featuredIconChip--green { background: rgba(18, 183, 106, 0.14); color: var(--stark-green); }
+.featuredIconChip--blue  { background: rgba(47, 92, 255, 0.14); color: var(--stark-blue); }
+
+.featuredTitle {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--stark-text-muted);
+}
+
+.featuredSub {
+  font-size: 11.5px;
+  color: var(--stark-text-dim);
+}
+
+.featuredMoneyContainer {
+  margin-top: 16px;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
 .featuredMoney {
-  font-size: 28px;
-  /* font-weight: 700; */
-  color: #111;
+  font-family: var(--font-mono);
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--stark-text);
 }
 
 .featuredMoneyRate {
   display: flex;
   align-items: center;
-  font-weight: 500;
-  color: #333;
+  gap: 2px;
+  font-size: 12.5px;
+  font-weight: 600;
+  padding: 3px 7px;
+  border-radius: 999px;
 }
 
-.featuredIcon {
-  font-size: 20px;
-  margin-left: 6px;
-  color: green;
-}
+.featuredMoneyRate.up   { color: var(--stark-green); background: rgba(18, 183, 106, 0.12); }
+.featuredMoneyRate.down { color: var(--stark-danger); background: rgba(240, 68, 56, 0.12); }
 
-.featuredIcon.negative {
-  color: red;
-}
-
-.featuredSub {
-  font-size: 14px;
-  color: gray;
-}
-
-/* Responsive Layouts */
-@media (max-width: 900px) {
-  .featured {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
+.featuredIcon { font-size: 14px !important; }
 
 @media (max-width: 600px) {
-  .featured {
-    grid-template-columns: 1fr;
-  }
-
-  .featuredMoney {
-    font-size: 24px;
-  }
+  .featured { grid-template-columns: 1fr; }
+  .featuredMoney { font-size: 21px; }
 }

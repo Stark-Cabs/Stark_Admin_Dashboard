@@ -1,153 +1,142 @@
-/* Updated map.css */
-
 .mapWrapper {
-    position: relative;
     flex: 4;
-    padding: 25px;
+    padding: 24px;
     min-height: 100vh;
-    /* background: linear-gradient(135deg, #1a2a43, #2a3d5e); */
-    color: white;
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background: var(--stark-bg);
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    overflow: hidden;
-    align-items: center;
+    
 }
 
 .pageTitle {
-  font-size: 24px;
-  font-weight: 600;
-  color: #2c3e50;
-  margin-bottom: 20px;
+    font-family: var(--font-display);
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--stark-text);
+    margin: 0 0 18px;
 }
-.mapContainer {
-    width: 95%;
-    height: 85vh;
-    border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+
+.mapArea {
+    position: relative;
+    flex: 1;
+    min-height: 70vh;
+    border-radius: 16px;
     overflow: hidden;
-    margin-bottom: 20px;
+    border: 1px solid var(--stark-border);
+    box-shadow: 0 8px 24px rgba(16, 24, 40, 0.08);
 }
-/* Updated map.css */
 
-/* ... (existing styles for .mapWrapper, .pageTitle, .mapContainer, etc.) ... */
+.mapContainer {
+    width: 100%;
+    height: 100%;
+}
 
-/* Floating panel with sliding effect */
+/* Floating driver panel */
 .driverPanel {
     position: absolute;
-    top: 100px;
-    right: 60px;
-    width: 320px;
-    max-height: 75vh;
-    overflow-y: scroll;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(15px);
-    border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    top: 16px;
+    right: 16px;
+    bottom: 16px;
+    width: 300px;
+    background: rgba(11, 18, 32, 0.82);
+    backdrop-filter: blur(14px);
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
     color: #fff;
-    border: 1px solid rgba(255, 255, 255, 0.15);
     z-index: 10;
-    transition: transform 1s ease-in-out;
-    transform: translateX(0); /* Default state is open */
+    transition: transform 0.35s ease;
+    transform: translateX(0);
+    display: flex;
 }
 
-/* This is the key change: move the panel completely off-screen */
 .driverPanel.closed {
-    transform: translateX(calc(100% + 60px)); /* Slides off-screen, plus the 'right' value */
+    transform: translateX(calc(100% + 16px));
 }
 
-/* Toggle button styling */
 .toggle-btn {
     position: absolute;
-    top: calc(100px + 20px); /* Align with the top of the panel, plus a small offset */
-    right: 360px; /* Position the button to the left of where the panel's corner is when open */
-    transform: translateY(-50%);
-    width: 40px;
-    height: 40px;
-    background-color: rgba(42, 61, 94, 0.8);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    top: 20px;
+    left: -35px;
+    width: 36px;
+    height: 36px;
+    background: var(--stark-navy);
+    border: 1px solid rgba(255, 255, 255, 0.15);
     border-radius: 50%;
-    color: white;
+    color: #fff;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: transform 1s ease-in-out, background-color 1s;
     outline: none;
     z-index: 11;
-}
-
-/* This animation moves the button along with the panel */
-.toggle-btn.closed {
-    transform: translateX(calc(100% + 40px)) translateY(-50%); /* Moves the button to the right, in sync with the panel */
-}
-
-/* Add a hover effect for the button */
-.toggle-btn:hover {
-    background-color: #5a769b;
-}
-
-/* ... (existing styles for .panel-content, .panelTitle, .driverList, etc.) ... */
-
-.toggle-btn {
-    position: absolute;
-    top: 50%;
-    left: 5px; /* Position the button outside the panel */
-    transform: translateY(-50%);
-    width: 40px;
-    height: 40px;
-    background-color: rgba(42, 61, 94, 0.8);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 50%;
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: background-color 0.5s, transform 0.5s;
-    outline: none;
-    z-index: 111; /* Above the panel */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    transition: background 0.15s ease;
 }
 
 .toggle-btn:hover {
-    background-color: #5a769b;
+    background: var(--stark-blue);
 }
 
 .panel-content {
-    padding: 20px;
-    height: 100%;
-    overflow-y: auto; /* Enable scroll inside the content */
+    padding: 18px;
+    width: 100%;
+    overflow-y: auto;
 }
 
-.panel-content::-webkit-scrollbar {
-    width: 8px;
-}
-
-.panel-content::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 10px;
-}
-
+.panel-content::-webkit-scrollbar { width: 6px; }
+.panel-content::-webkit-scrollbar-track { background: transparent; }
 .panel-content::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.2);
     border-radius: 10px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
 }
-
 .panel-content::-webkit-scrollbar-thumb:hover {
-    background: rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.35);
 }
 
+.panelHeader {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 16px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
 
-/* All other existing CSS remains the same */
+.liveDot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--stark-green);
+    box-shadow: 0 0 0 rgba(18, 183, 106, 0.5);
+    animation: pulseDot 1.8s infinite;
+    flex-shrink: 0;
+}
+
+@keyframes pulseDot {
+    0%   { box-shadow: 0 0 0 0 rgba(18, 183, 106, 0.5); }
+    70%  { box-shadow: 0 0 0 8px rgba(18, 183, 106, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(18, 183, 106, 0); }
+}
 
 .panelTitle {
-    font-size: 1.6em;
-    font-weight: bold;
-    margin-bottom: 15px;
-    border-bottom: 2px solid rgba(255, 255, 255, 0.25);
-    padding-bottom: 10px;
-    color: #e0e0e0;
+    font-family: var(--font-display);
+    font-size: 14px;
+    font-weight: 600;
+    margin: 0;
+    color: #E4E7EC;
+    flex: 1;
+}
+
+.panelCount {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--stark-blue);
+    background: rgba(47, 92, 255, 0.18);
+    padding: 2px 9px;
+    border-radius: 999px;
 }
 
 .driverList {
@@ -159,39 +148,43 @@
 .driverItem {
     display: flex;
     align-items: center;
-    margin-bottom: 15px;
-    padding: 12px;
-    border-radius: 12px;
-    transition: background 0.3s ease, transform 0.2s ease;
+    gap: 12px;
+    margin-bottom: 8px;
+    padding: 10px;
+    border-radius: 10px;
+    transition: background 0.15s ease;
     cursor: pointer;
 }
 
 .driverItem:hover {
-    background: rgba(255, 255, 255, 0.25);
-    transform: translateY(-3px);
+    background: rgba(255, 255, 255, 0.08);
 }
 
 .panelProfile {
-    width: 45px;
-    height: 45px;
+    width: 38px;
+    height: 38px;
     border-radius: 50%;
-    margin-right: 15px;
-    border: 2px solid #5edfff;
+    border: 2px solid var(--stark-blue);
     object-fit: cover;
+    flex-shrink: 0;
 }
 
+.driverText { min-width: 0; }
+
 .driverName {
-    font-weight: 700;
+    font-weight: 600;
     margin: 0;
-    font-size: 1.1em;
-    color: #f8f8f8;
+    font-size: 13.5px;
+    color: #fff;
 }
 
 .driverCoords {
-    font-size: 0.9em;
-    opacity: 0.9;
-    margin: 4px 0 0;
-    color: #c0c0c0;
+    font-size: 12px;
+    margin: 3px 0 0;
+    color: #9AA4B8;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .link {
@@ -199,12 +192,17 @@
     color: inherit;
 }
 
-
-/* Loading and No Drivers states */
 .loadingItem,
 .noDrivers {
-    padding: 15px;
+    padding: 20px 10px;
     text-align: center;
-    color: rgba(255, 255, 255, 0.7);
-    font-style: italic;
+    color: #8A93A6;
+    font-size: 13px;
+}
+
+@media (max-width: 768px) {
+    .driverPanel {
+        width: 80%;
+        max-width: 300px;
+    }
 }

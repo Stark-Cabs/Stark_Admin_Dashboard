@@ -1,8 +1,8 @@
 import "./rideModal.css";
 import { formatDateTime } from "../../utils/formatDate";
 import { useNavigate } from "react-router-dom";
+import { CloseRounded, PersonOutlineRounded, LocalTaxiOutlined } from "@mui/icons-material";
 
-/* ---------- Helpers ---------- */
 const round = (n) => Math.round(n * 100) / 100;
 
 const calculateFareBreakdown = (totalFare = 0) => {
@@ -35,21 +35,24 @@ export default function RideViewModal({ ride, onClose }) {
     const isCancelled = ride.status === "Cancelled";
     const cancel = ride.cancelDetails || {};
     const fare = calculateFareBreakdown(ride.totalFare);
+    const statusClass = ride.status?.toLowerCase();
 
     return (
-        <div className="modal-overlay">
-            <div className="modal-xl">
+        <div className="modal-overlay" onClick={onClose}>
+            <div className="modal-xl" onClick={(e) => e.stopPropagation()}>
 
                 {/* HEADER */}
                 <div className="modal-top">
                     <div className="modal-title">
                         <h3>Ride Details</h3>
-                        <span className={`ride-status ${ride.status.toLowerCase()}`}>
+                        <span className={`ride-status ride-status--${statusClass}`}>
                             {ride.status}
                         </span>
                     </div>
 
-                    <button className="close-btn" onClick={onClose}>✕</button>
+                    <button className="close-btn" onClick={onClose} aria-label="Close">
+                        <CloseRounded fontSize="small" />
+                    </button>
                 </div>
 
                 <div className="modal-body">
@@ -59,7 +62,7 @@ export default function RideViewModal({ ride, onClose }) {
                         <div className="summary-grid">
                             <div>
                                 <b>Ride Key</b>
-                                <span>{ride.uniqueRideKey}</span>
+                                <span className="mono">{ride.uniqueRideKey}</span>
                             </div>
                             <div>
                                 <b>Distance</b>
@@ -80,8 +83,8 @@ export default function RideViewModal({ ride, onClose }) {
                     <div className="card">
                         <h4>Locations</h4>
                         <div className="location-box">
-                            <p><b>Pickup:</b> {ride.currentLocationName}</p>
-                            <p><b>Drop:</b> {ride.destinationLocationName}</p>
+                            <p><b>Pickup</b> {ride.currentLocationName}</p>
+                            <p><b>Drop</b> {ride.destinationLocationName}</p>
                         </div>
                     </div>
 
@@ -104,6 +107,7 @@ export default function RideViewModal({ ride, onClose }) {
                                 })
                             }
                         >
+                            <PersonOutlineRounded fontSize="small" />
                             View Customer
                         </button>
                     </div>
@@ -133,6 +137,7 @@ export default function RideViewModal({ ride, onClose }) {
                                 })
                             }
                         >
+                            <LocalTaxiOutlined fontSize="small" />
                             View Driver
                         </button>
                     </div>
@@ -141,40 +146,38 @@ export default function RideViewModal({ ride, onClose }) {
                     <div className="card">
                         <h4>Fare Breakdown</h4>
 
-                        {/* NORMAL / PLANNED FARE */}
                         <div className="fare-grid">
                             <div>
                                 <b>Total Fare (Incl. GST)</b>
-                                <span>₹{ride.totalFare}</span>
+                                <span className="mono">₹{ride.totalFare}</span>
                             </div>
 
                             <div>
                                 <b>Base Fare</b>
-                                <span>₹{fare.baseAmount}</span>
+                                <span className="mono">₹{fare.baseAmount}</span>
                             </div>
 
                             <div>
                                 <b>GST (5%)</b>
-                                <span>₹{fare.gst}</span>
+                                <span className="mono">₹{fare.gst}</span>
                             </div>
 
                             <div>
                                 <b>Platform Fee (10%)</b>
-                                <span>₹{fare.platformFee}</span>
+                                <span className="mono">₹{fare.platformFee}</span>
                             </div>
 
                             <div className="highlight-fee">
                                 <b>Deducted From Wallet</b>
-                                <span>₹{fare.walletDeduction}</span>
+                                <span className="mono">₹{fare.walletDeduction}</span>
                             </div>
 
                             <div>
                                 <b>Driver Earnings</b>
-                                <span>₹{ride.driverEarnings}</span>
+                                <span className="mono">₹{ride.driverEarnings}</span>
                             </div>
                         </div>
 
-                        {/* CANCELLED DETAILS (ONLY IF CANCELLED) */}
                         {isCancelled && (
                             <>
                                 <hr className="divider" />
@@ -189,36 +192,36 @@ export default function RideViewModal({ ride, onClose }) {
 
                                     <div>
                                         <b>Travelled Distance</b>
-                                        <span>{cancel.travelledDistance || "0"}</span>
+                                        <span>{cancel.travelledDistance || "0"} km</span>
                                     </div>
 
                                     <div>
                                         <b>Platform Fee Deducted</b>
-                                        <span>₹{cancel.platformShare || 0}</span>
+                                        <span className="mono">₹{cancel.platformShare || 0}</span>
                                     </div>
 
                                     <div>
                                         <b>Amount Refunded to Wallet</b>
-                                        <span>₹{cancel.refundedAmount || 0}</span>
+                                        <span className="mono">₹{cancel.refundedAmount || 0}</span>
                                     </div>
 
                                     <div>
                                         <b>Total Fare (After Cancel)</b>
-                                        <span>₹{cancel.totalFare || 0}</span>
+                                        <span className="mono">₹{cancel.totalFare || 0}</span>
                                     </div>
                                     <div>
                                         <b>Driver Earnings (After Cancel)</b>
-                                        <span>₹{cancel.driverEarnings || 0}</span>
+                                        <span className="mono">₹{cancel.driverEarnings || 0}</span>
                                     </div>
                                 </div>
 
                                 {cancel.cancelledLocationName && (
                                     <div className="location-box cancelled-box">
                                         <p>
-                                            <b>Cancelled At:</b> {cancel.cancelledLocationName}
+                                            <b>Cancelled At</b> {cancel.cancelledLocationName}
                                         </p>
                                         <p>
-                                            <b>Cancelled Time:</b>{" "}
+                                            <b>Cancelled Time</b>{" "}
                                             {formatDateTime(cancel.cancelledAt)}
                                         </p>
                                     </div>
@@ -229,7 +232,6 @@ export default function RideViewModal({ ride, onClose }) {
 
                 </div>
 
-                {/* FOOTER */}
                 <div className="modal-footer">
                     <button className="primary-btn" onClick={onClose}>
                         Close

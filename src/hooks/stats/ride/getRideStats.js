@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import axiosInstance from "../../../api/axiosInstance";
 
-export default function useDriverStats() {
+export default function useRideStats() {
     const MONTHS = useMemo(
         () => [
             "Jan", "Feb", "Mar", "Apr", "May", "Jun",
@@ -10,7 +10,7 @@ export default function useDriverStats() {
         []
     );
 
-    const [driverStats, setDriverStats] = useState([]);
+    const [rideStats, setRideStats] = useState([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -19,12 +19,12 @@ export default function useDriverStats() {
                 setLoading(true);
 
                 // Fetch Drivers
-                const driverResponse = await axiosInstance.get(`/admin/drivers/stats`);
-                const sortedDrivers = driverResponse.data.sort((a, b) => a._id - b._id);
-                setDriverStats(
-                    sortedDrivers.map((item) => ({
+                const rideResponse = await axiosInstance.get(`/admin/rides/stats`);
+                const sortedRides = rideResponse.data.sort((a, b) => a._id - b._id);
+                setRideStats(
+                    sortedRides.map((item) => ({
                         name: MONTHS[item._id - 1],
-                        "New Drivers": item.total,
+                        "New Rides": item.total,
                     }))
                 );
             } catch (error) {
@@ -37,5 +37,5 @@ export default function useDriverStats() {
         fetchStats();
     }, [MONTHS]);
 
-    return { driverStats, loading };
+    return { rideStats, loading };
 }

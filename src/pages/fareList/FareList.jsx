@@ -19,13 +19,33 @@ export default function FareList() {
 
     const columns = useMemo(
         () => [
-            { Header: "Vehicle Type", accessor: "vehicle_type" },
+            {
+                Header: "Vehicle Type",
+                accessor: "vehicle_type",
+                Cell: ({ value }) => <span className="vehicleTag">{value}</span>,
+            },
             { Header: "District", accessor: "district" },
-            { Header: "Base Fare", accessor: "baseFare" },
+            {
+                Header: "Base Fare",
+                accessor: "baseFare",
+                Cell: ({ value }) => <span className="fareAmount">₹{value}</span>,
+            },
             { Header: "Upto Km", accessor: "baseFareUptoKm" },
-            { Header: "Per Km Amount", accessor: "perKmRate" },
-            { Header: "Per Minute", accessor: "perMinRate" },
-            { Header: "Surge Multiplier", accessor: "surgeMultiplier" },
+            {
+                Header: "Per Km Amount",
+                accessor: "perKmRate",
+                Cell: ({ value }) => <span className="fareAmount">₹{value}</span>,
+            },
+            {
+                Header: "Per Minute",
+                accessor: "perMinRate",
+                Cell: ({ value }) => <span className="fareAmount">₹{value}</span>,
+            },
+            {
+                Header: "Surge Multiplier",
+                accessor: "surgeMultiplier",
+                Cell: ({ value }) => <span className="surgeTag">{value}×</span>,
+            },
             {
                 Header: "Last Updated",
                 accessor: "updatedAt",
@@ -65,7 +85,7 @@ export default function FareList() {
     };
 
     return (
-        <div className="container">
+        <div className="fareList">
             <DataTable
                 title="Fare Details"
                 data={fares || []}

@@ -1,3 +1,38 @@
-.container {
-    flex: 4;
+.fareList {
+  flex: 4;
+  padding: 24px;
+  background: var(--stark-bg);
+  min-height: 100vh;
+  box-sizing: border-box;
+  overflow-x: scroll;
+  scrollbar-width: none;
+}
+
+.vehicleTag {
+  padding: 4px 10px;
+  border-radius: 7px;
+  font-size: 12.5px;
+  font-weight: 600;
+  background: var(--stark-blue-soft);
+  color: var(--stark-blue);
+}
+
+.fareAmount {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--stark-text);
+}
+
+.surgeTag {
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  font-weight: 600;
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: rgba(247, 144, 9, 0.12);
+  color: var(--stark-amber);
+}
+
+@media (max-width: 640px) {
+  .fareList { padding: 16px; }
 }

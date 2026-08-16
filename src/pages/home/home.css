@@ -1,8 +1,28 @@
-.home{
+.home {
     flex: 4;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    background: var(--stark-bg);
+    box-sizing: border-box;
+    overflow-x: scroll;
+    scrollbar-width: none;
 }
 
-.homeWidgets{
+.homeWidgets {
     display: flex;
-    margin: 20px;
+    gap: 24px;
+    align-items: flex-start;
+}
+
+@media (max-width: 900px) {
+    .home {
+        padding: 16px;
+        gap: 16px;
+    }
+
+    .homeWidgets {
+        flex-direction: column;
+    }
 }

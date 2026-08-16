@@ -1,28 +1,49 @@
 import React, { useContext, useEffect, useMemo } from "react";
 import DataTable from "../../components/dataTable/DataTable";
 import { toast } from "react-toastify";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/authContext/AuthContext";
 import { TransactionContext } from "../../context/transactionContext/TransactionContext";
 import { getTransactions } from "../../context/transactionContext/apiCalls";
 import FeaturedInfo from "../../components/featuredInfo/FeaturedInfo";
 import './transactionList.css'
+import useTransactionStats from "../../hooks/stats/transaction/getTransactionStats";
+import Chart from "../../components/chart/Chart";
+
 export default function TransactionList() {
     const { transactions, dispatch } = useContext(TransactionContext);
     const { user } = useContext(AuthContext);
     const navigate = useNavigate();
 
+    const { transactionStats } = useTransactionStats();
+
+
     useEffect(() => {
         getTransactions(dispatch, toast);
-        console.log('transactions', transactions)
     }, [dispatch]);
 
     const columns = useMemo(
         () => [
-            { Header: "Payment ID", accessor: "paymentId", },
-            { Header: "Status", accessor: "status" },
-            { Header: "Gross Amount", accessor: "grossAmount" },
-            { Header: "Net Amount", accessor: "netAmount" },
+            { Header: "Payment ID", accessor: "paymentId" },
+            {
+                Header: "Status",
+                accessor: "status",
+                Cell: ({ value }) => (
+                    <span className={`txnStatus txnStatus--${value?.toLowerCase()}`}>
+                        {value}
+                    </span>
+                ),
+            },
+            {
+                Header: "Gross Amount",
+                accessor: "grossAmount",
+                Cell: ({ value }) => <span className="amountCell">₹{value}</span>,
+            },
+            {
+                Header: "Net Amount",
+                accessor: "netAmount",
+                Cell: ({ value }) => <span className="amountCell amountCell--net">₹{value}</span>,
+            },
             {
                 Header: "Action On",
                 accessor: "actionOn",
@@ -38,8 +59,16 @@ export default function TransactionList() {
                     });
                 },
             },
-            { Header: "Driver Name", accessor: "driverId.name" },
-            { Header: "Email", accessor: "driverId.email" },
+            {
+                Header: "Driver",
+                accessor: "driverId.name",
+                Cell: ({ row }) => (
+                    <div className="driverCell">
+                        <span className="driverCellName">{row.original.driverId?.name || "N/A"}</span>
+                        <span className="driverCellSub">{row.original.driverId?.email || "N/A"}</span>
+                    </div>
+                ),
+            },
             { Header: "Phone", accessor: "driverId.phone_number" },
         ],
         []
@@ -50,23 +79,21 @@ export default function TransactionList() {
     };
 
     return (
-        <div className="container">
+        <div className="transactionList">
+            <Chart data={transactionStats} title="Transaction Analytics" grid dataKey="New Transactions" accent="green" />
 
-            <div style={{flex:4}}>
-
-                <FeaturedInfo number={6} />
-                <DataTable
-                    title="Transactions"
-                    data={transactions || []}
-                    columns={columns}
-                    buttonName={'View'}
-                    onButtonClick={handleEditClick}
-                    searchPlaceholder="Search by name, email, or phone..."
-                    showFilter={true}
-                    filterOptions={["success", "pending", "failed"]}
-                    filterKey="status"
-                />
-            </div>
+            <FeaturedInfo number={6} />
+            <DataTable
+                title="Transactions"
+                data={transactions || []}
+                columns={columns}
+                buttonName={'View'}
+                onButtonClick={handleEditClick}
+                searchPlaceholder="Search by name, email, or phone..."
+                showFilter={true}
+                filterOptions={["success", "pending", "failed"]}
+                filterKey="status"
+            />
         </div>
     );
 }

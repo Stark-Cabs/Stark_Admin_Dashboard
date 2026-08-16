@@ -1,131 +1,128 @@
-.container {
+.complaintList {
     flex: 4;
+    padding: 24px;
+    min-height: 100vh;
+    background: var(--stark-bg);
+    box-sizing: border-box;
+    overflow-x: scroll;
+    scrollbar-width: none;
 }
 
+/* ---------- Status Badges ---------- */
 .status-badge {
-    padding: 4px 10px;
-    border-radius: 12px;
-    font-size: 12px;
-    font-weight: 600;
+    padding: 4px 11px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.03em;
     text-transform: uppercase;
+    display: inline-block;
+    white-space: nowrap;
 }
 
-.status-badge.pending {
-    background-color: #fff3cd;
-    color: #856404;
+.status-pending {
+    background: rgba(247, 144, 9, 0.12);
+    color: var(--stark-amber);
 }
 
-.status-badge.in\ review {
-    background-color: #d1ecf1;
-    color: #0c5460;
+.status-in-review {
+    background: rgba(47, 92, 255, 0.12);
+    color: var(--stark-blue);
 }
 
-.status-badge.resolved {
-    background-color: #d4edda;
-    color: #155724;
+.status-resolved {
+    background: rgba(18, 183, 106, 0.12);
+    color: var(--stark-green);
 }
 
-.status-badge.rejected {
-    background-color: #f8d7da;
-    color: #721c24;
+.status-rejected {
+    background: rgba(240, 68, 56, 0.12);
+    color: var(--stark-danger);
+}
+
+/* ---------- Priority ---------- */
+.priority {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.priorityDot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    flex-shrink: 0;
 }
 
 .priority.low {
-    color: green;
+    color: var(--stark-green);
+}
+
+.priority.low .priorityDot {
+    background: var(--stark-green);
 }
 
 .priority.medium {
-    color: orange;
+    color: var(--stark-amber);
+}
+
+.priority.medium .priorityDot {
+    background: var(--stark-amber);
 }
 
 .priority.high {
-    color: red;
+    color: var(--stark-danger);
+}
+
+.priority.high .priorityDot {
+    background: var(--stark-danger);
 }
 
 /* ---------- Action Buttons ---------- */
 .action-buttons {
     display: flex;
     gap: 8px;
+    flex-wrap: wrap;
 }
 
 .action-buttons button {
-    border: none;
-    padding: 6px 12px;
-    font-size: 12px;
+    border: 1px solid transparent;
+    padding: 6px 13px;
+    font-size: 12.5px;
     font-weight: 600;
-    border-radius: 6px;
+    border-radius: 8px;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: background 0.15s ease, border-color 0.15s ease;
+    white-space: nowrap;
 }
 
-/* View Button */
 .btn-view {
-    background: linear-gradient(135deg, #2563eb, #1d4ed8);
-    color: #fff;
+    background: var(--stark-surface);
+    border-color: var(--stark-border);
+    color: var(--stark-blue);
 }
 
 .btn-view:hover {
-    opacity: 0.9;
+    background: var(--stark-blue-soft);
+    border-color: var(--stark-blue);
 }
 
-/* In Review Button */
 .btn-review {
-    background: linear-gradient(135deg, #f59e0b, #d97706);
-    color: #fff;
+    background: rgba(247, 144, 9, 0.12);
+    color: var(--stark-amber);
 }
 
 .btn-review:hover {
-    opacity: 0.9;
+    background: rgba(247, 144, 9, 0.2);
 }
 
-/* Resolve Button */
 .btn-resolve {
-    background: linear-gradient(135deg, #22c55e, #16a34a);
-    color: #fff;
+    background: rgba(18, 183, 106, 0.12);
+    color: var(--stark-green);
 }
 
 .btn-resolve:hover {
-    opacity: 0.9;
+    background: rgba(18, 183, 106, 0.2);
 }
-
-/* ---------- Status Badges ---------- */
-.status-badge {
-    padding: 4px 10px;
-    border-radius: 999px;
-    font-size: 11px;
-    font-weight: 700;
-    text-transform: uppercase;
-    display: inline-block;
-}
-
-.status-badge.pending {
-    background: #fff7ed;
-    color: #c2410c;
-}
-
-.status-badge.in\ review {
-    background: #ecfeff;
-    color: #0369a1;
-}
-
-.status-badge.resolved {
-    background: #f0fdf4;
-    color: #15803d;
-}
-
-/* ---------- Priority ---------- */
-.priority.low {
-    color: #16a34a;
-    font-weight: 600;
-}
-
-.priority.medium {
-    color: #ca8a04;
-    font-weight: 600;
-}
-
-.priority.high {
-    color: #dc2626;
-    font-weight: 700;
-}
-

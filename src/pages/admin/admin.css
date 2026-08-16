@@ -1,191 +1,56 @@
 .adminDetail {
   flex: 4;
-  padding: 30px;
-  /* background-color: #f0f2f5; */
+  padding: 24px;
   min-height: 100vh;
+  background: var(--stark-bg);
+  box-sizing: border-box;
+  overflow-x: scroll;
+  scrollbar-width: none;
 }
 
 .adminTitleContainer {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
 
 .adminTitle {
-  font-size: 28px;
-  font-weight: 700;
-  color: #2c3e50;
-  padding: 10px;
-}
-
-.adminAddButton {
-  padding: 10px 20px;
-  border: none;
-  background-color: #007bff;
-  color: white;
-  border-radius: 8px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.adminAddButton:hover {
-  background-color: #0056b3;
-}
-
-.adminContainer {
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  gap: 30px;
-  flex-wrap: wrap;
-  width: 90%;
-  flex: 2;
-}
-
-.adminShow {
-  background: #ffffff;
-  padding: 25px;
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-  width: 100%;
-  max-width: 600px;
-}
-
-.adminShowTop {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  padding-bottom: 20px;
-  border-bottom: 1px solid #e0e0e0;
-  position: relative;
-}
-
-.adminShowImg {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 4px solid #f0f2f5;
-}
-
-.adminShowTopTitle {
-  display: flex;
-  flex-direction: column;
-}
-
-.adminShowUsername {
+  font-family: var(--font-display);
   font-size: 22px;
   font-weight: 600;
-  color: #333;
+  color: var(--stark-text);
+  margin: 0;
 }
 
-.adminShowUserRole {
-  font-size: 14px;
-  color: #888;
-  margin-top: 2px;
-}
-
-.adminStatusTag {
-  position: absolute;
-  top: 0;
-  right: 0;
-  font-size: 12px;
-  font-weight: 600;
-  padding: 5px 10px;
-  border-radius: 20px;
-  text-transform: capitalize;
-}
-
-.adminStatusTag.active {
-  background-color: #e6f7e6;
-  color: #28a745;
-}
-
-.adminStatusTag.inactive {
-  background-color: #fff3e6;
-  color: #ff9800;
-}
-
-.adminShowBottom {
-  margin-top: 25px;
-}
-
-.adminShowTitle {
-  font-size: 18px;
-  font-weight: 600;
-  color: #555;
-  margin-bottom: 15px;
-  position: relative;
-}
-
-.adminShowTitle::after {
-  content: "";
-  display: block;
-  width: 50px;
-  height: 3px;
-  background-color: #007bff;
-  margin-top: 5px;
-  border-radius: 2px;
-}
-
-.adminShowInfo {
-  display: flex;
-  align-items: center;
-  margin-bottom: 15px;
-  gap: 12px;
-}
-
-.adminShowIcon {
-  font-size: 20px !important;
-  color: #888;
-}
-
-.adminShowInfoTitle {
-  font-size: 15px;
-  color: #666;
-}
-
-.adminActions {
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 25px;
-  gap: 15px;
-}
-
-.adminListEdit {
-  border: none;
-  border-radius: 8px;
-  padding: 8px 16px;
-  background-color: #3498db;
+.editButton {
+  background: var(--stark-blue);
   color: white;
-  cursor: pointer;
-  font-size: 14px;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 9px;
+  font-size: 13.5px;
   font-weight: 600;
-  transition: background-color 0.2s ease;
-}
-
-.adminListEdit:hover {
-  background-color: #2980b9;
-}
-
-.adminListDelete {
-  color: #e74c3c;
   cursor: pointer;
-  font-size: 24px !important;
-  transition: color 0.2s ease;
-  margin-top: 5px;
+  transition: background 0.15s ease;
 }
 
-.adminListDelete:hover {
-  color: #c0392b;
+.editButton:hover { background: #2648D6; }
+
+.editButton.cancel {
+  background: var(--stark-surface);
+  color: var(--stark-danger);
+  border: 1px solid var(--stark-border);
+}
+
+.editButton.cancel:hover {
+  background: rgba(240, 68, 56, 0.06);
 }
 
 .noAdminFound {
   text-align: center;
-  color: #a0a0a0;
-  font-size: 18px;
+  color: var(--stark-text-dim);
+  font-size: 14px;
   margin-top: 60px;
   display: flex;
   flex-direction: column;
@@ -193,392 +58,461 @@
   gap: 10px;
 }
 
-.adminActionsCard {
-  background: #ffffff;
-  padding: 25px;
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-  flex: 1;
-  min-width: 300px;
+.adminContainer {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 20px;
+  align-items: start;
+}
+
+/* Left card */
+.adminShow {
+  background: var(--stark-surface);
+  border: 1px solid var(--stark-border);
+  border-radius: 16px;
+  padding: 24px;
   display: flex;
   flex-direction: column;
+  gap: 22px;
+}
+
+.adminShowTop {
+  display: flex;
   align-items: center;
-  text-align: center;
+  gap: 18px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--stark-border);
+  position: relative;
+}
+
+.adminShowImg {
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--stark-bg);
+  box-shadow: 0 0 0 1px var(--stark-border);
+}
+
+.adminShowTopTitle {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.adminShowUsername {
+  font-family: var(--font-display);
+  font-size: 19px;
+  font-weight: 600;
+  color: var(--stark-text);
+}
+
+.adminShowUserRole {
+  font-size: 12.5px;
+  color: var(--stark-text-dim);
+  margin-top: 3px;
+}
+
+.adminStatusTag {
+  font-size: 11.5px;
+  font-weight: 700;
+  padding: 4px 11px;
+  border-radius: 999px;
+  text-transform: capitalize;
+  white-space: nowrap;
+  align-self: flex-start;
+}
+
+.adminStatusTag--active   { background: rgba(18, 183, 106, 0.12); color: var(--stark-green); }
+.adminStatusTag--inactive { background: rgba(240, 68, 56, 0.12); color: var(--stark-danger); }
+
+.adminShowSection {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.adminShowTitle {
+  font-family: var(--font-display);
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--stark-text-dim);
+  margin: 0;
+}
+
+.adminShowGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 10px;
+}
+
+.adminShowInfo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--stark-bg);
+  border: 1px solid var(--stark-border);
+  border-radius: 11px;
+  padding: 11px 13px;
+}
+
+.adminShowIconChip {
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.adminShowIconChip svg { font-size: 16px !important; }
+
+.adminShowIconChip--blue   { background: rgba(47, 92, 255, 0.14); color: var(--stark-blue); }
+.adminShowIconChip--violet { background: rgba(124, 92, 255, 0.14); color: var(--stark-violet); }
+.adminShowIconChip--green  { background: rgba(18, 183, 106, 0.14); color: var(--stark-green); }
+.adminShowIconChip--amber  { background: rgba(247, 144, 9, 0.14); color: var(--stark-amber); }
+.adminShowIconChip--danger { background: rgba(240, 68, 56, 0.14); color: var(--stark-danger); }
+
+.adminShowInfoText {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.adminShowInfoLabel {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--stark-text-dim);
+}
+
+.adminShowInfoValue {
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--stark-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.fieldLink {
+  color: var(--stark-blue);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.fieldLink:hover { text-decoration: underline; }
+
+/* Logs */
+.logsGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.logRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 9px 0;
+  border-bottom: 1px solid var(--stark-border);
+  font-size: 13px;
+}
+
+.logRow:last-of-type { border-bottom: none; }
+
+.logLabel {
+  color: var(--stark-text-dim);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.logValue {
+  color: var(--stark-text);
+  text-align: right;
+  overflow-wrap: break-word;
+}
+
+.viewFullHistoryButton {
+  margin-top: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  align-self: flex-start;
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  background: var(--stark-blue-soft);
+  color: var(--stark-blue);
+  border: none;
+  border-radius: 9px;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.viewFullHistoryButton:hover {
+  background: #D6DEFF;
+}
+
+/* History modal */
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(11, 18, 32, 0.55);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.modalContent {
+  background: var(--stark-surface);
+  border-radius: 16px;
+  width: 520px;
+  max-width: 100%;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.25);
+}
+
+.modalContentHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--stark-border);
+  position: sticky;
+  top: 0;
+  background: var(--stark-surface);
+}
+
+.modalContentHeader h3 {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--stark-text);
+  margin: 0;
+}
+
+.closeModalButton {
+  background: var(--stark-bg);
+  border: 1px solid var(--stark-border);
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--stark-text-muted);
+  cursor: pointer;
+}
+
+.closeModalButton:hover { background: var(--stark-border); }
+
+.historyList {
+  list-style: none;
+  padding: 12px 24px 24px;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.historyItem {
+  background: var(--stark-bg);
+  border: 1px solid var(--stark-border);
+  border-radius: 12px;
+  padding: 14px 16px;
+}
+
+.historyItemTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+
+.historyAction {
+  font-weight: 600;
+  font-size: 13.5px;
+  color: var(--stark-text);
+}
+
+.historyDate {
+  font-size: 11.5px;
+  color: var(--stark-text-dim);
+  white-space: nowrap;
+}
+
+.historyBy {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12.5px;
+  color: var(--stark-text-muted);
+  margin: 0 0 4px;
+}
+
+.historyRemark {
+  font-size: 12.5px;
+  color: var(--stark-text-muted);
+  margin: 0;
+  font-style: italic;
+}
+
+.viewAdminButton {
+  padding: 3px 9px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--stark-blue);
+  background: var(--stark-blue-soft);
+  border-radius: 6px;
+  text-decoration: none;
+}
+
+.viewAdminButton:hover { background: #D6DEFF; }
+
+/* Right card — actions + edit form */
+.adminActionsCard {
+  background: var(--stark-surface);
+  border: 1px solid var(--stark-border);
+  border-radius: 16px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  position: sticky;
+  top: 24px;
 }
 
 .adminActionsTitle {
-  font-size: 20px;
+  font-family: var(--font-display);
+  font-size: 14px;
   font-weight: 600;
-  color: #333;
-  margin-bottom: 20px;
+  color: var(--stark-text);
+  margin: 0 0 14px;
+}
+
+.adminActionsTitle.updateTitle {
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid var(--stark-border);
+}
+
+.adminActionButtons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .adminActionButton {
-  width: 100%;
-  width: 220px;
-  padding: 12px;
-  margin-bottom: 12px;
+  padding: 11px;
   border: none;
-  border-radius: 8px;
-  font-size: 15px;
+  border-radius: 9px;
+  font-size: 13.5px;
   font-weight: 600;
   color: white;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  transition: background 0.15s ease;
 }
 
-.adminActionButton.edit {
-  background-color: #3498db;
-}
+.adminActionButton.activate   { background: var(--stark-green); }
+.adminActionButton.activate:hover   { background: #0E9A5A; }
 
-.adminActionButton.edit:hover {
-  background-color: #2980b9;
-}
+.adminActionButton.deactivate { background: var(--stark-amber); }
+.adminActionButton.deactivate:hover { background: #D97F06; }
 
-.adminActionButton.activate {
-  background-color: #28a745;
-}
+.adminActionButton.delete     { background: var(--stark-danger); }
+.adminActionButton.delete:hover     { background: #D63D31; }
 
-.adminActionButton.activate:hover {
-  background-color: #218838;
-}
-
-.adminActionButton.deactivate {
-  background-color: #ff9800;
-}
-
-.adminActionButton.deactivate:hover {
-  background-color: #e68900;
-}
-
-.adminActionButton.delete {
-  background-color: #dc3545;
-}
-
-.adminActionButton.delete:hover {
-  background-color: #c82333;
-}
-
-.adminActionHelpText {
-  font-size: 14px;
-  color: #888;
-  margin-top: 15px;
-  line-height: 1.5;
-}
-
-/* ... (existing styles) ... */
-
-.adminActionsCard {
-  background: #ffffff;
-  padding: 25px;
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-  flex: 1;
-  min-width: 300px;
-  display: flex;
-  flex-direction: column;
-  /* align-items: center;  Removed this to allow form to align left */
-}
-
-.adminActionsTitle {
-  font-size: 20px;
-  font-weight: 600;
-  color: #333;
-  margin-bottom: 20px;
-}
-
-/* New title for the update form */
-.adminActionsTitle.updateTitle {
-  margin-top: 30px;
-  margin-bottom: 15px;
-  text-align: left;
-}
-
-.adminActionsTitle.updateTitle::after {
-  content: "";
-  display: block;
-  width: 50px;
-  height: 3px;
-  background-color: #007bff;
-  margin-top: 5px;
-  border-radius: 2px;
-}
-
-
-/* Form Styling */
 .adminUpdateForm {
-  width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 4px;
+}
+
+.adminUpdateGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 12px;
 }
 
 .adminUpdateItem {
   display: flex;
   flex-direction: column;
+  margin-bottom: 12px;
 }
 
-.adminUpdateItem>label {
-  font-size: 14px;
-  color: #7f8c8d;
+.adminUpdateItem--full {
+  grid-column: 1 / -1;
+}
+
+.adminUpdateItem > label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--stark-text-muted);
   margin-bottom: 5px;
 }
 
 .adminUpdateInput {
-   padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    font-size: 14px;
+  padding: 9px 11px;
+  border: 1px solid var(--stark-border);
+  border-radius: 9px;
+  font-size: 13px;
+  font-family: var(--font-body);
+  color: var(--stark-text);
+  background: var(--stark-surface);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
 .adminUpdateInput:focus {
   outline: none;
-  border-color: #3498db;
+  border-color: var(--stark-blue);
+  box-shadow: 0 0 0 3px var(--stark-blue-soft);
+}
+
+.adminUpdateInput:disabled {
+  background: var(--stark-bg);
+  color: var(--stark-text-dim);
+  cursor: not-allowed;
 }
 
 .adminUpdateButton {
-  width: 100%;
   padding: 12px;
-  margin-top: 15px;
+  margin-top: 10px;
   border: none;
-  border-radius: 8px;
-  background-color: #28a745;
+  border-radius: 10px;
+  background: var(--stark-blue);
   color: white;
   font-weight: 600;
+  font-size: 13.5px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background 0.15s ease;
 }
 
-.adminUpdateButton:hover {
-  background-color: #218838;
-}
+.adminUpdateButton:hover { background: #2648D6; }
 
-/* Action Buttons */
-.adminActionButton {
-  width: 100%;
-  /* Make buttons full width */
-  padding: 12px;
-  margin-bottom: 12px;
-  border: none;
-  border-radius: 8px;
-  font-size: 15px;
-  font-weight: 600;
-  color: white;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-.editButton {
-  background-color: #f39c12;
-  color: white;
-  padding: 10px 15px;
-  border: none;
-  border-radius: 8px;
-  font-size: 15px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.editButton.cancel {
-  background-color: #e74c3c;
-}
-
-.editButton:hover {
-  background-color: #e67e22;
-}
-
-/* ... (rest of the CSS remains the same) ... */
-
-.driverApprovalHistory {
-  margin-top: 20px;
-  padding: 15px;
-  border-radius: 12px;
-  background: #f9f9f9;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
-}
-
-.driverInfoLabel {
-  font-weight: 600;
-  margin-right: 8px;
-  color: #333;
-}
-
-.viewAdminButton {
-  margin-left: 10px;
-  padding: 4px 10px;
-  font-size: 0.85rem;
-  color: #fff;
-  background: #007bff;
-  border-radius: 6px;
-  text-decoration: none;
-  transition: background 0.2s ease;
-}
-
-.viewAdminButton:hover {
-  background: #0056b3;
-}
-
-.viewFullHistoryButton {
-  margin-top: 15px;
-  padding: 6px 12px;
-  font-size: 0.9rem;
-  background: #28a745;
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background 0.2s ease;
-}
-
-.viewFullHistoryButton:hover {
-  background: #1e7e34;
-}
-
-.closeModalButton {
-  margin-top: 15px;
-  padding: 6px 12px;
-  font-size: 0.9rem;
-  background: #dc3545;
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background 0.2s ease;
-}
-
-.closeModalButton:hover {
-  background: #a71d2a;
-}
-
-.modalOverlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.6);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-}
-
-.modalContent {
-  background: #fff;
-  padding: 30px;
-  border-radius: 12px;
-  width: 90%;
-  max-width: 500px;
-  max-height: 80vh;
-  overflow-y: auto;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
-}
-
-.modalContent h3 {
-  font-size: 22px;
-  color: #333;
-  margin-bottom: 20px;
-}
-
-.historyList {
-  list-style: none;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-.historyItem {
-  border-bottom: 1px solid #ddd;
-  padding-bottom: 15px;
-}
-
-.historyItem:last-child {
-  border-bottom: none;
-}
-
-.historyItem p {
-  margin: 5px 0;
-  color: #555;
-  font-size: 14px;
-}
-
-.historyItem strong {
-  color: #2c3e50;
-}
-
-.modalContent button {
-  padding: 10px 20px;
-  background-color: #7f8c8d;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  margin-top: 20px;
-  transition: background-color 0.3s;
-}
-
-.modalContent button:hover {
-  background-color: #5e6c75;
-}
-
-
-/* Stack layout for small screens */
-@media (max-width: 992px) {
+/* Responsive */
+@media (max-width: 1100px) {
   .adminContainer {
-    flex-direction: column;
-    gap: 20px;
+    grid-template-columns: 1fr;
   }
 
-  .adminShow,
   .adminActionsCard {
-    max-width: 100%;
-    width: 100%;
-  }
-
-  .adminDetail {
-    padding: 15px;
-  }
-
-  .adminTitle {
-    font-size: 22px;
-  }
-
-  .adminShowUsername {
-    font-size: 18px;
-  }
-
-  .adminShowImg {
-    width: 65px;
-    height: 65px;
-  }
-
-  .adminActionButton {
-    width: 100%;
-    font-size: 14px;
-    padding: 10px;
-  }
-
-  .adminUpdateInput {
-    font-size: 13px;
-    padding: 8px;
+    position: static;
   }
 }
 
-/* Extra small screen tweaks (phones < 480px) */
-@media (max-width: 480px) {
-  .adminShowTop {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
-
-  .adminShowTopTitle {
-    align-items: center;
-  }
-
-  .adminStatusTag {
-    position: static;
-    margin-top: 8px;
-  }
+@media (max-width: 600px) {
+  .adminDetail { padding: 16px; }
+  .adminUpdateGrid { grid-template-columns: 1fr; }
+  .adminShowTop { flex-wrap: wrap; }
+  .adminStatusTag { position: static; }
 }

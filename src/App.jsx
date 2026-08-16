@@ -19,7 +19,7 @@ import NonApprovedDriverList from "./pages/driverList/Non-Approved-DriverList";
 import "react-toastify/dist/ReactToastify.css";
 import Map from "./pages/map/Map";
 import Profile from "./pages/profile/Profile";
-import TransactionList from "./pages/transactionList/transactionList";
+import TransactionList from "./pages/transactionList/TransactionList";
 import RideList from "./pages/rideList/RideList";
 import FareList from "./pages/fareList/FareList";
 import ComplaintList from "./pages/complaintsList/ComplaintList";

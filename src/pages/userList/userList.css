@@ -1,111 +1,23 @@
 .userList {
   flex: 4;
-  padding: 20px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background: var(--stark-bg);
+  box-sizing: border-box;
+  overflow-x: scroll;
+  scrollbar-width: none;
 }
 
 .pageTitle {
-  font-size: 22px;
+  font-family: var(--font-display);
+  font-size: 20px;
   font-weight: 600;
-  margin-bottom: 20px;
+  color: var(--stark-text);
+  margin: 0;
 }
 
-.searchBar {
-  display: flex;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-.searchBar input {
-  width: 300px;
-  padding: 8px 12px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  outline: none;
-}
-
-.tableWrapper {
-  overflow-x: auto;
-}
-
-.userTable {
-  width: 100%;
-  border-collapse: collapse;
-  background: #fff;
-  border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-}
-
-.userTable th,
-.userTable td {
-  text-align: left;
-  padding: 12px 16px;
-  border-bottom: 1px solid #eee;
-}
-
-.userTable th {
-  background-color: #f9fafb;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-.userTable tr:hover {
-  background-color: #f6f6f6;
-}
-
-.tableImg {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  object-fit: cover;
-}
-
-.tableActions {
-  display: flex;
-  gap: 10px;
-}
-
-.userListEdit {
-  border: none;
-  padding: 6px 12px;
-  border-radius: 6px;
-  background-color: #3498db;
-  color: white;
-  cursor: pointer;
-  font-size: 14px;
-}
-
-.userListDelete {
-  border: none;
-  padding: 6px 12px;
-  border-radius: 6px;
-  background-color: #d9534f;
-  color: white;
-  cursor: pointer;
-  font-size: 14px;
-}
-.pagination {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 15px 0;
-}
-
-.pagination button {
-  padding: 6px 12px;
-  border: none;
-  background: #3498db;
-  color: #fff;
-  border-radius: 6px;
-  cursor: pointer;
-}
-
-.pagination button:disabled {
-  background: #ccc;
-  cursor: not-allowed;
-}
-
-.pagination select {
-  padding: 5px 10px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
+@media (max-width: 640px) {
+  .userList { padding: 16px; }
 }

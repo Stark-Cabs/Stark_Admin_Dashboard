@@ -1,48 +1,51 @@
 import "./widgetSm.css";
 import { Visibility } from '@mui/icons-material';
-import { useEffect } from "react";
-import { useState } from "react";
-import axios from "axios";
+import { useEffect, useState } from "react";
 import axiosInstance from "../../api/axiosInstance";
+import { useNavigate } from "react-router-dom";
 
 export default function WidgetSm() {
-
-  const [newUsers, setNewUsers] = useState([])
+  const [newUsers, setNewUsers] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getNewUsers = async () => {
       try {
-        const res = await axiosInstance.get(`/admin/users?new=true`)
-        setNewUsers(res.data.users)
+        const res = await axiosInstance.get(`/admin/users?new=true`);
+        setNewUsers(res.data.users);
       } catch (error) {
-        console.log(error)
+        console.log(error);
       }
-    }
-    getNewUsers()
-  }, [])
+    };
+    getNewUsers();
+  }, []);
+
   return (
     <div className="widgetSm">
       <span className="widgetSmTitle">New Join Members</span>
       <ul className="widgetSmList">
         {newUsers.map((user) => (
-
-          <li className="widgetSmListItem">
+          <li className="widgetSmListItem" key={user._id}>
             <img
-              src={user.profilePic || 'https://th.bing.com/th?id=OIP.EwG6x9w6RngqsKrPJYxULAHaHa&w=250&h=250&c=8&rs=1&qlt=90&o=6&cb=13&dpr=1.3&pid=3.1&rm=2'}
+              src={user.profilePic || '/assets/images/logo/IconOnly.png'}
               alt=""
               className="widgetSmImg"
             />
             <div className="widgetSmUser">
-            <span className="widgetSmUsername">{user.name}</span>
-            <span className="widgetSmUserTitle">{user.email}</span>
+              <span className="widgetSmUsername">{user.name}</span>
+              <span className="widgetSmUserTitle">{user.email}</span>
             </div>
-            <button className="widgetSmButton">
+            <button className="widgetSmButton" onClick={() => {
+              navigate(`/user/${user._id}`, {
+                state: { userId: user._id },
+              })
+            }}>
               <Visibility className="widgetSmIcon" />
-              Display
+              View
             </button>
           </li>
         ))}
-
+        {newUsers.length === 0 && <p className="widgetSmEmpty">No new members yet.</p>}
       </ul>
     </div>
   );

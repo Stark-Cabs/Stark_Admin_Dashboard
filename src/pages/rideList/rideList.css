@@ -1,3 +1,37 @@
-.container {
-    flex: 4;
+.rideList {
+  flex: 4;
+  padding: 24px;
+  background: var(--stark-bg);
+  min-height: 100vh;
+  box-sizing: border-box;
+  overflow-x: scroll;
+  scrollbar-width: none;
+}
+
+.rideStatusTag {
+  padding: 4px 11px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.rideStatusTag--booked     { background: rgba(124, 92, 255, 0.12); color: var(--stark-violet); }
+.rideStatusTag--processing { background: rgba(247, 144, 9, 0.12);  color: var(--stark-amber); }
+.rideStatusTag--arrived    { background: rgba(47, 92, 255, 0.12);  color: var(--stark-blue); }
+.rideStatusTag--ongoing    { background: rgba(47, 92, 255, 0.12);  color: var(--stark-blue); }
+.rideStatusTag--reached    { background: rgba(18, 183, 106, 0.12); color: var(--stark-green); }
+.rideStatusTag--completed  { background: rgba(18, 183, 106, 0.12); color: var(--stark-green); }
+.rideStatusTag--cancelled  { background: rgba(240, 68, 56, 0.12);  color: var(--stark-danger); }
+
+.fareCell {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--stark-text);
+}
+
+@media (max-width: 640px) {
+  .container { padding: 16px; }
 }

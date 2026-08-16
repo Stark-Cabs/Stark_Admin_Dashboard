@@ -1,6 +1,11 @@
 .driverDetail {
     flex: 4;
-    padding: 20px;
+    padding: 24px;
+    min-height: 100vh;
+    background: var(--stark-bg);
+    box-sizing: border-box;
+    overflow-x: scroll;
+    scrollbar-width: none;
 }
 
 .driverDetailTitleContainer {
@@ -11,107 +16,109 @@
 }
 
 .driverDetailTitle {
-    font-size: 24px;
+    font-family: var(--font-display);
+    font-size: 22px;
     font-weight: 600;
-    padding: 10px;
+    color: var(--stark-text);
+    margin: 0;
 }
 
 .editButton {
-    padding: 8px 16px;
+    padding: 10px 18px;
     border: none;
-    border-radius: 8px;
+    border-radius: 9px;
     cursor: pointer;
-    color: white;
-    font-weight: 500;
-    transition: background-color 0.3s ease;
+    font-weight: 600;
+    font-size: 13.5px;
+    transition: background 0.15s ease;
 }
 
 .editButton.edit {
-    background-color: #3498db;
+    background: var(--stark-blue);
+    color: white;
 }
+.editButton.edit:hover { background: #2648D6; }
 
 .editButton.cancel {
-    background-color: #e74c3c;
+    background: var(--stark-surface);
+    color: var(--stark-danger);
+    border: 1px solid var(--stark-border);
 }
+.editButton.cancel:hover { background: rgba(240, 68, 56, 0.06); }
 
-/* 📱 Main Layout: Flexbox and responsiveness */
 .driverContainer {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
     gap: 20px;
+    align-items: start;
 }
 
 .driverInfoCard,
 .driverActionsCard {
-    flex: 1;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-}
-
-.driverInfoCard {
-    flex: 2;
-    /* Info card takes up more space on desktop */
+    background: var(--stark-surface);
+    border: 1px solid var(--stark-border);
+    border-radius: 16px;
+    padding: 24px;
 }
 
 .driverInfoTop {
     display: flex;
     align-items: center;
-    gap: 15px;
-    margin-bottom: 20px;
-    position: relative;
+    gap: 16px;
+    margin-bottom: 8px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--stark-border);
+    flex-wrap: wrap;
 }
 
 .driverInfoImg {
-    width: 80px;
-    height: 80px;
+    width: 72px;
+    height: 72px;
     border-radius: 50%;
     object-fit: cover;
+    border: 3px solid var(--stark-bg);
+    box-shadow: 0 0 0 1px var(--stark-border);
 }
 
 .driverInfoTopTitle {
     display: flex;
     flex-direction: column;
+    flex: 1;
 }
 
 .driverInfoName {
-    font-size: 20px;
+    font-family: var(--font-display);
+    font-size: 19px;
     font-weight: 600;
+    color: var(--stark-text);
 }
 
 .driverInfoVehicle {
-    font-weight: 300;
-    color: #555;
+    font-size: 12.5px;
+    color: var(--stark-text-dim);
+    margin-top: 3px;
 }
 
-
-/* STATUS SECTION (right side) */
 .driverStatusWrapper {
     display: flex;
-    /* flex: 8; */
-    /* flex-direction: column; */
-    gap: 6px;
+    gap: 8px;
     align-items: center;
+    flex-wrap: wrap;
 }
 
-/* TAGS */
 .driverStatusTag {
-    padding: 4px 10px;
-    border-radius: 6px;
-    font-size: 12px;
-    font-weight: 600;
+    padding: 4px 11px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
     text-transform: uppercase;
+    white-space: nowrap;
 }
 
-.driverStatusTag.approved {
-    background-color: #2ecc71;
-    color: white;
-}
-
-.driverStatusTag.pending {
-    background-color: #f1c40f;
-    color: white;
-}
+.driverStatusTag.approved { background: rgba(18, 183, 106, 0.12); color: var(--stark-green); }
+.driverStatusTag.pending  { background: rgba(247, 144, 9, 0.12);  color: var(--stark-amber); }
+.driverStatusTag.neutral  { background: var(--stark-bg); color: var(--stark-text-dim); }
 
 .driverInfoBottom {
     display: flex;
@@ -119,228 +126,444 @@
 }
 
 .driverInfoTitle {
-    font-size: 18px;
+    font-family: var(--font-display);
+    font-size: 11.5px;
     font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--stark-text-dim);
     margin-top: 20px;
-    margin-bottom: 10px;
-    padding-bottom: 5px;
-    border-bottom: 1px solid #eee;
+    margin-bottom: 12px;
+}
+
+.driverInfoTitle:first-of-type { margin-top: 20px; }
+
+.driverInfoGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 10px;
 }
 
 .driverInfoItem {
     display: flex;
     align-items: center;
-    gap: 10px;
-    margin-bottom: 8px;
-    font-size: 14px;
+    gap: 12px;
+    background: var(--stark-bg);
+    border: 1px solid var(--stark-border);
+    border-radius: 11px;
+    padding: 11px 13px;
+    position: relative;
 }
 
-.driverInfoIcon {
-    font-size: 18px;
-    color: #555;
+.driverInfoItem--clickable {
+    cursor: pointer;
+    transition: border-color 0.15s ease;
 }
+.driverInfoItem--clickable:hover {
+    border-color: var(--stark-blue);
+}
+
+.driverInfoIconChip {
+    width: 32px;
+    height: 32px;
+    min-width: 32px;
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.driverInfoIconChip svg { font-size: 16px !important; }
+
+.driverInfoIconChip--blue   { background: rgba(47, 92, 255, 0.14); color: var(--stark-blue); }
+.driverInfoIconChip--violet { background: rgba(124, 92, 255, 0.14); color: var(--stark-violet); }
+.driverInfoIconChip--green  { background: rgba(18, 183, 106, 0.14); color: var(--stark-green); }
+.driverInfoIconChip--amber  { background: rgba(247, 144, 9, 0.14); color: var(--stark-amber); }
+.driverInfoIconChip--danger { background: rgba(240, 68, 56, 0.14); color: var(--stark-danger); }
 
 .driverInfoText {
-    color: #333;
+    font-size: 13.5px;
+    font-weight: 500;
+    color: var(--stark-text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .expiredTag {
-    background-color: #e74c3c;
-    color: white;
+    background: rgba(240, 68, 56, 0.12);
+    color: var(--stark-danger);
     padding: 2px 8px;
-    border-radius: 4px;
+    border-radius: 999px;
     font-size: 10px;
-    font-weight: 600;
-    margin-left: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-left: auto;
+    flex-shrink: 0;
 }
 
-/* ✅ Actions & Update Card */
+/* Logs */
+.driverApprovalHistory {
+    margin-top: 20px;
+}
+
+.logsGrid {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.logRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    padding: 9px 0;
+    border-bottom: 1px solid var(--stark-border);
+    font-size: 13px;
+}
+
+.logRow:last-of-type { border-bottom: none; }
+
+.logLabel {
+    color: var(--stark-text-dim);
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.logValue {
+    color: var(--stark-text);
+    text-align: right;
+    overflow-wrap: break-word;
+}
+
+.fieldLink {
+    color: var(--stark-blue);
+    text-decoration: none;
+    font-weight: 600;
+}
+.fieldLink:hover { text-decoration: underline; }
+
+.viewFullHistoryButton {
+    margin-top: 12px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    font-size: 13px;
+    font-weight: 600;
+    background: var(--stark-blue-soft);
+    color: var(--stark-blue);
+    border: none;
+    border-radius: 9px;
+    cursor: pointer;
+    transition: background 0.15s ease;
+}
+.viewFullHistoryButton:hover { background: #D6DEFF; }
+
+/* Actions card */
 .driverActionsCard {
+    display: flex;
+    flex-direction: column;
+    position: sticky;
+    top: 24px;
+}
+
+.driverActionsTitle {
+    font-family: var(--font-display);
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--stark-text);
+    margin: 0 0 14px;
+}
+
+.driverActionsTitle.updateTitle {
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid var(--stark-border);
+}
+
+.driverFormSectionTitle {
+    font-family: var(--font-display);
+    font-size: 11.5px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--stark-text-dim);
+    margin: 18px 0 10px;
+}
+
+.driverFormSectionTitle:first-of-type { margin-top: 0; }
+
+.driverActionButtons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.driverActionButton {
+    padding: 11px;
+    border: none;
+    border-radius: 9px;
+    color: white;
+    font-size: 13.5px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s ease;
+}
+
+.driverActionButton.approve   { background: var(--stark-green); }
+.driverActionButton.approve:hover   { background: #0E9A5A; }
+
+.driverActionButton.deapprove { background: var(--stark-amber); }
+.driverActionButton.deapprove:hover { background: #D97F06; }
+
+.driverActionButton.delete    { background: var(--stark-danger); }
+.driverActionButton.delete:hover    { background: #D63D31; }
+
+.driverUpdateForm {
     display: flex;
     flex-direction: column;
 }
 
-.driverActionsTitle {
-    font-size: 18px;
-    font-weight: 600;
-    margin-bottom: 10px;
-    margin-top: 10px;
-    padding-bottom: 5px;
-    border-bottom: 1px solid #eee;
-}
-
-.driverActionButton {
-    padding: 12px;
-    border: none;
-    border-radius: 8px;
-    color: white;
-    font-size: 14px;
-    font-weight: 500;
-    cursor: pointer;
-    margin-bottom: 10px;
-    transition: background-color 0.3s ease;
-}
-
-.driverActionButton.approve {
-    background-color: #2ecc71;
-}
-
-.driverActionButton.deapprove {
-    background-color: #f1c40f;
-}
-
-.driverActionButton.delete {
-    background-color: #e74c3c;
+.driverUpdateGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 12px;
 }
 
 .driverUpdateFormGroup {
     display: flex;
     flex-direction: column;
-    margin-bottom: 15px;
+    margin-bottom: 12px;
+}
+
+.driverUpdateFormGroup--full {
+    grid-column: 1 / -1;
 }
 
 .driverUpdateFormGroup label {
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 600;
-    color: #333;
+    color: var(--stark-text-muted);
     margin-bottom: 5px;
 }
 
 .driverUpdateInput {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    font-size: 14px;
+    padding: 9px 11px;
+    border: 1px solid var(--stark-border);
+    border-radius: 9px;
+    font-size: 13px;
+    font-family: var(--font-body);
+    color: var(--stark-text);
+    background: var(--stark-surface);
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.driverUpdateInput:focus {
+    outline: none;
+    border-color: var(--stark-blue);
+    box-shadow: 0 0 0 3px var(--stark-blue-soft);
 }
 
 .driverUpdateInput:disabled {
-    background-color: #f5f5f5;
+    background: var(--stark-bg);
+    color: var(--stark-text-dim);
     cursor: not-allowed;
 }
 
 .driverUpdateBtn {
-    width: 100%;
     padding: 12px;
-    background-color: #007bff;
+    background: var(--stark-blue);
     color: white;
     border: none;
-    border-radius: 8px;
-    font-size: 16px;
+    border-radius: 10px;
+    font-size: 13.5px;
     font-weight: 600;
     cursor: pointer;
-    transition: background-color 0.3s ease;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    transition: background 0.15s ease;
+    margin-top: 8px;
 }
+.driverUpdateBtn:hover { background: #2648D6; }
 
-/* History and Modal */
-.viewAdminButton,
-.viewFullHistoryButton {
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: #3498db;
-    text-decoration: none;
-    font-weight: 500;
-    padding: 0;
-    margin-left: 5px;
-}
-
-.viewFullHistoryButton {
-    margin-top: 10px;
-    padding: 8px 16px;
-    border: 1px solid #3498db;
-    border-radius: 8px;
-    font-size: 14px;
-    transition: background-color 0.3s ease;
-}
-
-.viewFullHistoryButton:hover {
-    background-color: #3498db;
-    color: white;
-}
-
+/* History / wallet modals */
 .modalOverlay {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
+    inset: 0;
+    background: rgba(11, 18, 32, 0.55);
+    backdrop-filter: blur(4px);
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 1000;
+    padding: 20px;
 }
 
 .modalContent {
-    background: white;
-    padding: 30px;
-    border-radius: 12px;
-    width: 90%;
-    max-width: 600px;
-    position: relative;
+    background: var(--stark-surface);
+    border-radius: 16px;
+    width: 520px;
+    max-width: 100%;
     max-height: 80vh;
     overflow-y: auto;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.25);
+}
+
+.modalContentHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--stark-border);
+    position: sticky;
+    top: 0;
+    background: var(--stark-surface);
+}
+
+.modalContentHeader h3 {
+    font-family: var(--font-display);
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--stark-text);
+    margin: 0;
 }
 
 .closeModalButton {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    border: none;
-    background: none;
-    font-size: 20px;
+    background: var(--stark-bg);
+    border: 1px solid var(--stark-border);
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--stark-text-muted);
     cursor: pointer;
 }
+.closeModalButton:hover { background: var(--stark-border); }
 
 .historyList {
     list-style: none;
-    padding: 0;
+    padding: 12px 24px 24px;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
 }
 
 .historyItem {
-    border-bottom: 1px solid #eee;
-    padding: 15px 0;
+    background: var(--stark-bg);
+    border: 1px solid var(--stark-border);
+    border-radius: 12px;
+    padding: 14px 16px;
 }
 
-.historyItem:last-child {
-    border-bottom: none;
+.historyItemTop {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 6px;
 }
 
+.historyAction {
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--stark-text);
+}
 
-/* 📱 RESPONSIVE STYLES */
-@media screen and (max-width: 1024px) {
+.historyDate {
+    font-size: 11.5px;
+    color: var(--stark-text-dim);
+    white-space: nowrap;
+}
+
+.historyBy {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12.5px;
+    color: var(--stark-text-muted);
+    margin: 0 0 4px;
+}
+
+.historyRemark {
+    font-size: 12.5px;
+    color: var(--stark-text-muted);
+    margin: 0;
+    font-style: italic;
+}
+
+.historyEmpty {
+    text-align: center;
+    color: var(--stark-text-dim);
+    font-size: 13px;
+    padding: 20px 0;
+}
+
+.viewAdminButton {
+    padding: 3px 9px;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--stark-blue);
+    background: var(--stark-blue-soft);
+    border-radius: 6px;
+    text-decoration: none;
+}
+.viewAdminButton:hover { background: #D6DEFF; }
+
+/* Recent rides */
+.recentRidesSection {
+    margin-top: 20px;
+}
+
+.rideStatusTag {
+    padding: 4px 11px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.rideStatusTag--booked     { background: rgba(124, 92, 255, 0.12); color: var(--stark-violet); }
+.rideStatusTag--processing { background: rgba(247, 144, 9, 0.12);  color: var(--stark-amber); }
+.rideStatusTag--arrived    { background: rgba(47, 92, 255, 0.12);  color: var(--stark-blue); }
+.rideStatusTag--ongoing    { background: rgba(47, 92, 255, 0.12);  color: var(--stark-blue); }
+.rideStatusTag--reached    { background: rgba(18, 183, 106, 0.12); color: var(--stark-green); }
+.rideStatusTag--completed  { background: rgba(18, 183, 106, 0.12); color: var(--stark-green); }
+.rideStatusTag--cancelled  { background: rgba(240, 68, 56, 0.12);  color: var(--stark-danger); }
+
+.fareCell {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--stark-text);
+}
+
+.noDrivers {
+    text-align: center;
+    color: var(--stark-text-dim);
+    font-size: 14px;
+    margin-top: 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Responsive */
+@media screen and (max-width: 1100px) {
     .driverContainer {
-        flex-direction: column;
-        /* Stack columns on smaller screens */
+        grid-template-columns: 1fr;
+    }
+    .driverActionsCard {
+        position: static;
     }
 }
 
-@media screen and (max-width: 768px) {
-    .driverDetail {
-        padding: 10px;
-    }
-
-    .driverDetailTitle {
-        font-size: 20px;
-    }
-
-    .driverInfoTop {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .driverStatusTag {
-        position: static;
-        margin-top: 10px;
-    }
-
-    .driverInfoTitle {
-        font-size: 16px;
-    }
-
-    .driverInfoItem {
-        font-size: 13px;
-    }
+@media screen and (max-width: 640px) {
+    .driverDetail { padding: 16px; }
+    .driverUpdateGrid { grid-template-columns: 1fr; }
+    .driverInfoTop { flex-direction: column; align-items: flex-start; }
 }

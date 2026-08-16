@@ -1,41 +1,44 @@
 .driver-info-window {
   position: absolute;
-  background: rgba(20, 25, 40, 0.95);
+  background: rgba(11, 18, 32, 0.92);
   backdrop-filter: blur(10px);
   border-radius: 12px;
   padding: 12px 16px;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.55);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.4);
   color: #fff;
   display: flex;
   align-items: flex-start;
   z-index: 20;
-  pointer-events: auto; /* Allow clicks on the Link */
-  min-width: 220px;
+  pointer-events: none;
+  min-width: 230px;
   transform: translate(20%, -55%);
   white-space: nowrap;
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.12);
 }
 
- .info-window-avatar {
-  width: 45px;
-  height: 45px;
+.info-window-avatar {
+  width: 42px;
+  height: 42px;
   border-radius: 50%;
   margin-right: 12px;
-  border: 2px solid #66d9ef;
+  border: 2px solid var(--stark-blue);
   object-fit: cover;
+  flex-shrink: 0;
 }
 
 .info-window-details {
   display: flex;
   flex-direction: column;
   flex: 1;
+  gap: 3px;
 }
 
 .info-window-name {
+  font-family: var(--font-display);
   font-weight: 600;
-  margin: 0 0 4px 0;
-  font-size: 1.05em;
-  color: #f1f1f1;
+  margin: 0 0 3px;
+  font-size: 14px;
+  color: #fff;
 }
 
 .info-window-vehicle,
@@ -43,25 +46,40 @@
 .info-window-phone,
 .info-window-email,
 .info-window-coords {
-  font-size: 0.78em;
-  color: #ccc;
-  margin: 2px 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: #B4BBCC;
+  margin: 0;
+}
+
+.info-window-coords {
+  font-family: var(--font-mono);
+  font-size: 11px;
+}
+
+.info-window-icon {
+  font-size: 13px !important;
+  color: var(--stark-blue);
+  flex-shrink: 0;
 }
 
 .info-window-vehicle {
-  color: #7ed6df;
+  color: #9AD8E0;
 }
 
 .info-window-link {
   margin-top: 6px;
-  font-size: 0.85em;
-  font-weight: 500;
-  color: #66d9ef;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--stark-blue);
   text-decoration: none;
   align-self: flex-start;
-  transition: color 0.2s;
+  transition: color 0.15s ease;
+  pointer-events: auto;
 }
 
 .info-window-link:hover {
-  color: #1abc9c;
+  color: #6C8FFF;
 }

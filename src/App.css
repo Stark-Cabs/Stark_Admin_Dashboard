@@ -1,5 +1,29 @@
 :root {
-    --main-color: #0b0b0b
+    --stark-navy: #0B1220;
+    --stark-navy-soft: #141B2D;
+    --stark-navy-border: #232C42;
+    --stark-blue: #2F5CFF;
+    --stark-blue-soft: #E8ECFF;
+    --stark-violet: #7C5CFF;
+    --stark-green: #12B76A;
+    --stark-amber: #F79009;
+    --stark-bg: #F6F7FB;
+    --stark-surface: #FFFFFF;
+    --stark-border: #E4E7EC;
+    --stark-text: #101828;
+    --stark-text-muted: #667085;
+    --stark-text-dim: #8A93A6;
+    --stark-danger: #F04438;
+
+    --font-display: "Space Grotesk", sans-serif;
+    --font-body: "Inter", sans-serif;
+    --font-mono: "IBM Plex Mono", monospace;
+}
+
+body {
+    background: var(--stark-bg);
+    font-family: var(--font-body);
+    color: var(--stark-text);
 }
 
 .container {

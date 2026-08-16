@@ -1,76 +1,132 @@
-/* General Page and Container */
 .newAdmin {
   flex: 4;
-  padding: 30px;
+  padding: 32px 24px;
   min-height: 100vh;
+  background: var(--stark-bg);
   display: flex;
   justify-content: center;
   align-items: flex-start;
+  box-sizing: border-box;
+  overflow-x: scroll;
+  scrollbar-width: none;
 }
 
 .formContainer {
-  background: #ffffff;
-  padding: 40px;
-  border-radius: 12px;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  background: var(--stark-surface);
+  border: 1px solid var(--stark-border);
+  padding: 32px;
+  border-radius: 18px;
   width: 100%;
-  max-width: 600px;
+  max-width: 720px;
+}
+
+.formHeader {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 28px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--stark-border);
+}
+
+.formHeaderIcon {
+  width: 46px;
+  height: 46px;
+  min-width: 46px;
+  border-radius: 12px;
+  background: var(--stark-blue-soft);
+  color: var(--stark-blue);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.formHeaderIcon svg {
+  font-size: 22px;
 }
 
 .title {
-  font-size: 28px;
-  font-weight: 700;
-  color: #2c3e50;
-  margin-bottom: 25px;
-  text-align: center;
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--stark-text);
+  margin: 0;
 }
 
-/* Form Layout and Items */
+.subtitle {
+  font-size: 13px;
+  color: var(--stark-text-muted);
+  margin: 3px 0 0;
+}
+
 .adminForm {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+}
+
+.sectionTitle {
+  font-family: var(--font-display);
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--stark-text-dim);
+  margin: 24px 0 12px;
+}
+
+.sectionTitle:first-of-type {
+  margin-top: 0;
+}
+
+.formGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 14px;
 }
 
 .formItem {
   display: flex;
   flex-direction: column;
   width: 100%;
+  margin-bottom: 14px;
+}
+
+.formItem--full {
+  grid-column: 1 / -1;
 }
 
 .formItem label {
-  font-size: 14px;
+  font-size: 12.5px;
   font-weight: 600;
-  color: #7f8c8d;
-  margin-bottom: 8px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  color: var(--stark-text-muted);
+  margin-bottom: 6px;
 }
 
 .formItem input,
 .selectInput {
-  height: 45px;
-  padding: 0 15px;
-  border: 1px solid #e0e0e0;
-  border-radius: 8px;
-  font-size: 16px;
-  color: #333;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  height: 42px;
+  padding: 0 13px;
+  border: 1px solid var(--stark-border);
+  border-radius: 10px;
+  font-size: 13.5px;
+  font-family: var(--font-body);
+  color: var(--stark-text);
+  background: var(--stark-surface);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
 .formItem input:focus,
 .selectInput:focus {
   outline: none;
-  border-color: #3498db;
-  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+  border-color: var(--stark-blue);
+  box-shadow: 0 0 0 3px var(--stark-blue-soft);
 }
 
 .formItem input::placeholder {
-  color: #a0a0a0;
-  font-style: italic;
+  color: var(--stark-text-dim);
 }
 
-/* Password field with toggle button */
+/* Password field */
 .passwordWrapper {
   position: relative;
   display: flex;
@@ -78,48 +134,93 @@
 }
 
 .passwordWrapper input {
-  padding-right: 50px; /* Make space for the icon */
+  padding-right: 44px;
   width: 100%;
+  box-sizing: border-box;
 }
 
 .togglePassword {
   position: absolute;
-  right: 15px;
-  color: #a0a0a0;
+  right: 13px;
+  color: var(--stark-text-dim);
   cursor: pointer;
-  font-size: 22px !important;
-  transition: color 0.2s ease;
+  display: flex;
+  transition: color 0.15s ease;
 }
 
 .togglePassword:hover {
-  color: #7f8c8d;
+  color: var(--stark-text-muted);
 }
 
-/* Select element styling */
+/* Select styling */
 .selectInput {
-  appearance: none; /* Removes default dropdown arrow */
-  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="%23a0a0a0"><path d="M7 10l5 5 5-5z"/></svg>');
+  appearance: none;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="%238A93A6"><path d="M7 10l5 5 5-5z"/></svg>');
   background-repeat: no-repeat;
-  background-position: right 15px center;
+  background-position: right 13px center;
   background-size: 16px;
+  cursor: pointer;
 }
 
-/* Submit Button */
-.submitButton {
-  width: 100%;
-  padding: 15px;
-  border: none;
-  background-color: #2ecc71; /* A friendly green */
-  color: white;
-  font-size: 18px;
+/* Actions */
+.formActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 12px;
+  padding-top: 20px;
+  border-top: 1px solid var(--stark-border);
+}
+
+.submitButton,
+.cancelButton {
+  padding: 12px 22px;
+  border-radius: 10px;
+  font-size: 13.5px;
   font-weight: 600;
-  border-radius: 8px;
-  margin-top: 15px;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.submitButton {
+  border: none;
+  background: var(--stark-blue);
+  color: white;
 }
 
 .submitButton:hover {
-  background-color: #27ae60;
-  transform: translateY(-2px);
+  background: #2648D6;
+}
+
+.cancelButton {
+  border: 1px solid var(--stark-border);
+  background: var(--stark-surface);
+  color: var(--stark-text-muted);
+}
+
+.cancelButton:hover {
+  background: var(--stark-bg);
+}
+
+@media (max-width: 600px) {
+  .newAdmin {
+    padding: 16px;
+  }
+
+  .formContainer {
+    padding: 22px;
+  }
+
+  .formGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .formActions {
+    flex-direction: column-reverse;
+  }
+
+  .submitButton,
+  .cancelButton {
+    width: 100%;
+  }
 }

@@ -1,172 +1,255 @@
-/* ============================
-   🌟 Generic Data Table Styles
-   ============================ */
-
 .dataTable {
   flex: 4;
-  padding: 20px;
+  padding: 24px;
   min-height: 100vh;
+  background: var(--stark-bg);
+  box-sizing: border-box;
 }
 
-/* ---------- Header ---------- */
+/* Header */
 .tableHeader {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 18px;
 }
 
 .tableHeader h2 {
-  font-size: 24px;
+  font-family: var(--font-display);
+  font-size: 20px;
   font-weight: 600;
-  color: #2c3e50;
+  color: var(--stark-text);
+  margin: 0;
 }
 
 .createButton {
-  padding: 10px 20px;
+  padding: 10px 18px;
   border: none;
-  background-color: #007bff;
+  background: var(--stark-blue);
   color: white;
-  border-radius: 8px;
-  font-size: 15px;
+  border-radius: 9px;
+  font-size: 13.5px;
+  font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: background 0.15s ease;
 }
 
-.createButton:hover {
-  background-color: #2956b3;
-}
+.createButton:hover { background: #2648D6; }
 
-/* ---------- Search + Filter ---------- */
+/* Search + Filter */
 .searchFilterRow {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 15px 0 25px;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 18px;
 }
 
 .searchBar {
   display: flex;
   align-items: center;
-  background: #ffffff;
-  border-radius: 12px;
-  padding: 10px 15px;
-  max-width: 450px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  background: var(--stark-surface);
+  border: 1px solid var(--stark-border);
+  border-radius: 10px;
+  padding: 9px 14px;
+  width: 100%;
+  max-width: 380px;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.searchBar:focus-within {
+  border-color: var(--stark-blue);
+  box-shadow: 0 0 0 3px var(--stark-blue-soft);
 }
 
 .searchBar input {
   border: none;
   outline: none;
   background: transparent;
-  margin-left: 12px;
+  margin-left: 10px;
   flex: 1;
-  font-size: 16px;
-  color: #333;
+  font-size: 13.5px;
+  color: var(--stark-text);
+  min-width: 0;
 }
 
 .searchIcon {
-  color: #a0a0a0;
-  font-size: 20px !important;
+  color: var(--stark-text-dim);
+  font-size: 19px !important;
 }
 
 .filterBar select {
-  padding: 6px 12px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  font-size: 14px;
+  padding: 9px 12px;
+  border-radius: 9px;
+  border: 1px solid var(--stark-border);
+  font-size: 13.5px;
+  color: var(--stark-text);
+  background: var(--stark-surface);
+  cursor: pointer;
 }
 
-/* ---------- Table Styles ---------- */
+.filterBar select:focus {
+  outline: none;
+  border-color: var(--stark-blue);
+}
+
+/* Table */
+.tableScrollWrap {
+  background: var(--stark-surface);
+  border: 1px solid var(--stark-border);
+  border-radius: 14px;
+  overflow-x: auto;
+}
+
 .reactTable {
   width: 100%;
+  min-width: 640px;
   border-collapse: collapse;
-  background: #fff;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
 }
 
 .reactTable th,
 .reactTable td {
-  padding: 12px 16px;
+  padding: 13px 16px;
   text-align: left;
-  font-size: 14px;
+  font-size: 13.5px;
+  white-space: nowrap;
 }
 
 .reactTable th {
-  background: #f4f6f8;
+  background: var(--stark-bg);
+  font-family: var(--font-display);
+  font-size: 11.5px;
   font-weight: 600;
-  color: #2c3e50;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--stark-text-dim);
   cursor: pointer;
+  border-bottom: 1px solid var(--stark-border);
+  user-select: none;
 }
 
-.reactTable tr:nth-child(even) {
-  background: #fafafa;
+.thContent {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
 }
 
-.reactTable tr:hover {
-  background: #f1f1f1;
+.sortIcon {
+  display: inline-flex;
+  font-size: 15px;
+  color: var(--stark-blue);
 }
 
-/* ---------- Pagination ---------- */
+.sortIconIdle {
+  color: var(--stark-text-dim) !important;
+  opacity: 0.6;
+}
+
+.reactTable td {
+  color: var(--stark-text-muted);
+  border-bottom: 1px solid var(--stark-border);
+}
+
+.reactTable tr:last-child td {
+  border-bottom: none;
+}
+
+.reactTable tbody tr:hover {
+  background: var(--stark-bg);
+}
+
+.tableImg {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* Pagination */
 .pagination {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 20px 0;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 18px;
 }
 
-.pagination button {
-  padding: 6px 12px;
-  border: none;
-  background: #3498db;
-  color: #fff;
-  border-radius: 6px;
+.pageNavButton {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 8px 12px;
+  border: 1px solid var(--stark-border);
+  background: var(--stark-surface);
+  color: var(--stark-text);
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
   cursor: pointer;
-  transition: background 0.3s;
+  transition: background 0.15s ease, border-color 0.15s ease;
 }
 
-.pagination button:hover:not(:disabled) {
-  background: #2980b9;
+.pageNavButton:hover:not(:disabled) {
+  background: var(--stark-bg);
+  border-color: #D0D5DD;
 }
 
-.pagination button:disabled {
-  background: #ccc;
+.pageNavButton:disabled {
+  color: var(--stark-text-dim);
   cursor: not-allowed;
+  opacity: 0.6;
 }
 
-.pagination select {
-  padding: 5px 10px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
+.pageInfo {
+  font-size: 13px;
+  color: var(--stark-text-muted);
 }
 
-/* ---------- Edit Button (for Actions column) ---------- */
-.editButton {
-  border: none;
-  border-radius: 6px;
-  padding: 6px 14px;
-  background-color: #3498db;
-  color: white;
+.pageSizeSelect {
+  padding: 7px 10px;
+  border-radius: 8px;
+  border: 1px solid var(--stark-border);
+  font-size: 13px;
+  color: var(--stark-text);
+  background: var(--stark-surface);
   cursor: pointer;
-  font-size: 14px;
+}
+
+/* Actions column */
+.editButton {
+  border: 1px solid var(--stark-border);
+  border-radius: 8px;
+  padding: 6px 14px;
+  background: var(--stark-surface);
+  color: var(--stark-blue);
+  cursor: pointer;
+  font-size: 13px;
   font-weight: 600;
-  transition: background-color 0.2s ease;
+  transition: background 0.15s ease, border-color 0.15s ease;
 }
 
 .editButton:hover {
-  background-color: #2980b9;
+  background: var(--stark-blue-soft);
+  border-color: var(--stark-blue);
 }
 
-/* ---------- Empty/No Data State ---------- */
+/* Empty state */
 .noData {
   text-align: center;
-  color: #a0a0a0;
-  font-size: 18px;
-  margin-top: 60px;
+  color: var(--stark-text-dim);
+  font-size: 14px;
+  padding: 60px 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 10px;
+}
+
+@media (max-width: 640px) {
+  .dataTable { padding: 16px; }
+  .searchBar { max-width: 100%; }
 }

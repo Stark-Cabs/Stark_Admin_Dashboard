@@ -1,17 +1,20 @@
 import React, { useState, useEffect } from "react";
 import "./packageForm.css";
+import { CloseRounded } from "@mui/icons-material";
+
+const emptyForm = {
+    pickupLocation: "",
+    dropLocation: "",
+    startDate: "",
+    endDate: "",
+    cabType: "",
+    priority: "low",
+    description: "",
+    contactNumber: "",
+};
 
 export default function PackageFormModal({ show, onClose, onSubmit, onDelete, initialData }) {
-    const [formData, setFormData] = useState({
-        pickupLocation: "",
-        dropLocation: "",
-        startDate: "",
-        endDate: "",
-        cabType: "",
-        priority: "low",
-        description: "",
-        contactNumber: "",
-    });
+    const [formData, setFormData] = useState(emptyForm);
 
     const formatDateForInput = (date) => {
         if (!date) return "";
@@ -41,7 +44,6 @@ export default function PackageFormModal({ show, onClose, onSubmit, onDelete, in
         const [year, month, day] = date.split("-").map(Number);
         const [hours, minutes] = time.split(":").map(Number);
 
-        // Treat the selected date/time as IST (+05:30)
         const utcDate = new Date(
             Date.UTC(year, month - 1, day, hours, minutes)
         );
@@ -50,7 +52,7 @@ export default function PackageFormModal({ show, onClose, onSubmit, onDelete, in
 
         return utcDate.toISOString();
     };
-    
+
     useEffect(() => {
         if (initialData) {
             setFormData({
@@ -63,8 +65,10 @@ export default function PackageFormModal({ show, onClose, onSubmit, onDelete, in
                 description: initialData.description || "",
                 contactNumber: initialData.contactNumber || "",
             });
+        } else {
+            setFormData(emptyForm);
         }
-    }, [initialData]);
+    }, [initialData, show]);
 
     if (!show) return null;
 
@@ -82,99 +86,117 @@ export default function PackageFormModal({ show, onClose, onSubmit, onDelete, in
             endDate: convertISTToUTC(formData.endDate),
         };
 
-        console.log("Selected IST:", formData.startDate);
-        console.log("UTC being sent:", payload.startDate);
-
         onSubmit(payload);
     };
 
-
     return (
-        <div className="modal-overlay">
-            <div className="modal">
-                <h2>{initialData ? "Edit Package Details" : "Create Package"}</h2>
+        <div className="modal-overlay" onClick={onClose}>
+            <div className="modal" onClick={(e) => e.stopPropagation()}>
+                <div className="modal-header">
+                    <h2>{initialData ? "Edit Package Details" : "Create Package"}</h2>
+                    <button type="button" className="modal-close" onClick={onClose} aria-label="Close">
+                        <CloseRounded fontSize="small" />
+                    </button>
+                </div>
 
                 <form onSubmit={handleSubmit}>
-                    <label>Pickup Location</label>
-                    <input
-                        type="text"
-                        name="pickupLocation"
-                        value={formData.pickupLocation}
-                        onChange={handleChange}
-                        required
-                    />
+                    <div className="formGrid">
+                        <div className="formField">
+                            <label>Pickup Location</label>
+                            <input
+                                type="text"
+                                name="pickupLocation"
+                                value={formData.pickupLocation}
+                                onChange={handleChange}
+                                required
+                            />
+                        </div>
 
-                    <label>Drop Location</label>
-                    <input
-                        type="text"
-                        name="dropLocation"
-                        value={formData.dropLocation}
-                        onChange={handleChange}
-                        required
-                    />
+                        <div className="formField">
+                            <label>Drop Location</label>
+                            <input
+                                type="text"
+                                name="dropLocation"
+                                value={formData.dropLocation}
+                                onChange={handleChange}
+                                required
+                            />
+                        </div>
 
-                    <label>Start Date</label>
-                    <input
-                        type="datetime-local"
-                        name="startDate"
-                        value={formData.startDate}
-                        onChange={handleChange}
-                        required
-                    />
+                        <div className="formField">
+                            <label>Start Date</label>
+                            <input
+                                type="datetime-local"
+                                name="startDate"
+                                value={formData.startDate}
+                                onChange={handleChange}
+                                required
+                            />
+                        </div>
 
-                    <label>End Date</label>
-                    <input
-                        type="datetime-local"
-                        name="endDate"
-                        value={formData.endDate}
-                        onChange={handleChange}
-                        required
-                    />
+                        <div className="formField">
+                            <label>End Date</label>
+                            <input
+                                type="datetime-local"
+                                name="endDate"
+                                value={formData.endDate}
+                                onChange={handleChange}
+                                required
+                            />
+                        </div>
 
-                    <label>Cab Type</label>
-                    <select
-                        name="cabType"
-                        value={formData.cabType}
-                        onChange={handleChange}
-                        required
-                    >
-                        <option value="">Select</option>
-                        <option value="Auto">Auto</option>
-                        <option value="Hatchback">Hatchback</option>
-                        <option value="Sedan">Sedan</option>
-                        <option value="Suv">Suv</option>
-                        <option value="Traveller">Traveller</option>
-                    </select>
+                        <div className="formField">
+                            <label>Cab Type</label>
+                            <select
+                                name="cabType"
+                                value={formData.cabType}
+                                onChange={handleChange}
+                                required
+                            >
+                                <option value="">Select</option>
+                                <option value="Auto">Auto</option>
+                                <option value="Hatchback">Hatchback</option>
+                                <option value="Sedan">Sedan</option>
+                                <option value="Suv">Suv</option>
+                                <option value="Traveller">Traveller</option>
+                            </select>
+                        </div>
 
-                    <label>Priority</label>
-                    <select
-                        name="priority"
-                        value={formData.priority}
-                        onChange={handleChange}
-                    >
-                        <option value="low">Low</option>
-                        <option value="medium">Medium</option>
-                        <option value="high">High</option>
-                    </select>
+                        <div className="formField">
+                            <label>Priority</label>
+                            <select
+                                name="priority"
+                                value={formData.priority}
+                                onChange={handleChange}
+                            >
+                                <option value="low">Low</option>
+                                <option value="medium">Medium</option>
+                                <option value="high">High</option>
+                            </select>
+                        </div>
 
-                    <label>Contact Number</label>
-                    <input
-                        type="text"
-                        name="contactNumber"
-                        value={formData.contactNumber}
-                        onChange={handleChange}
-                    />
+                        <div className="formField formField--full">
+                            <label>Contact Number</label>
+                            <input
+                                type="text"
+                                name="contactNumber"
+                                value={formData.contactNumber}
+                                onChange={handleChange}
+                            />
+                        </div>
 
-                    <label>Description</label>
-                    <textarea
-                        name="description"
-                        value={formData.description}
-                        onChange={handleChange}
-                    />
+                        <div className="formField formField--full">
+                            <label>Description</label>
+                            <textarea
+                                name="description"
+                                rows={3}
+                                value={formData.description}
+                                onChange={handleChange}
+                            />
+                        </div>
+                    </div>
 
                     <div className="modal-actions">
-                        <button type="submit">Save</button>
-
                         {initialData && (
                             <button
                                 type="button"
@@ -188,10 +210,14 @@ export default function PackageFormModal({ show, onClose, onSubmit, onDelete, in
                                 Delete
                             </button>
                         )}
-
-                        <button type="button" onClick={onClose}>
-                            Cancel
-                        </button>
+                        <div className="modal-actions-right">
+                            <button type="button" className="btn-cancel" onClick={onClose}>
+                                Cancel
+                            </button>
+                            <button type="submit" className="btn-save">
+                                Save
+                            </button>
+                        </div>
                     </div>
                 </form>
             </div>

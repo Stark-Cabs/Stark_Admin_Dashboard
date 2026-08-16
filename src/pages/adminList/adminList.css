@@ -1,258 +1,56 @@
-/* General Page and Layout Enhancements */
 .adminList {
   flex: 4;
-  padding: 20px;
-  /* background-color: #f0f2f5; */
+  padding: 24px;
   min-height: 100vh;
-  /* Ensures a consistent background */
-}
-.adminTable {
-  width: 100%;
-  border-collapse: collapse;
-  background: #fff;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+  background: var(--stark-bg);
+  box-sizing: border-box;
+  overflow-x: scroll;
+  scrollbar-width: none;
 }
 
-.adminTable th, .adminTable td {
-  padding: 12px 16px;
-  text-align: left;
-  font-size: 14px;
-}
-
-.adminTable th {
-  background: #f4f6f8;
+.roleTag,
+.statusTag {
+  display: inline-block;
+  padding: 4px 11px;
+  border-radius: 999px;
+  font-size: 12px;
   font-weight: 600;
-  color: #2c3e50;
-  cursor: pointer;
+  text-transform: capitalize;
+  white-space: nowrap;
 }
 
-.adminTable tr:nth-child(even) {
-  background: #fafafa;
+.role-superadmin {
+  background: rgba(124, 92, 255, 0.12);
+  color: var(--stark-violet);
 }
 
-.adminTable tr:hover {
-  background: #f1f1f1;
+.role-admin {
+  background: rgba(47, 92, 255, 0.12);
+  color: var(--stark-blue);
 }
 
-.pagination {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 15px 0;
+.role-moderator {
+  background: rgba(247, 144, 9, 0.12);
+  color: var(--stark-amber);
 }
 
-.pagination button {
-  padding: 6px 12px;
-  border: none;
-  background: #3498db;
-  color: #fff;
-  border-radius: 6px;
-  cursor: pointer;
+.status-active {
+  background: rgba(18, 183, 106, 0.12);
+  color: var(--stark-green);
 }
 
-.pagination button:disabled {
-  background: #ccc;
-  cursor: not-allowed;
+.status-inactive {
+  background: rgba(240, 68, 56, 0.12);
+  color: var(--stark-danger);
 }
 
-.pagination select {
-  padding: 5px 10px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
+.status-deleted {
+  background: rgba(102, 112, 133, 0.12);
+  color: var(--stark-text-muted);
 }
 
-/* Search Bar Styling */
-.searchBar {
-  margin: 20px 0 40px;
-  /* Increased margin for better spacing */
-  display: flex;
-  align-items: center;
-  background: #ffffff;
-  border-radius: 12px;
-  /* Softer, more modern corners */
-  padding: 10px 15px;
-  max-width: 450px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  /* Subtle shadow for depth */
-}
-
-.searchBar input {
-  border: none;
-  outline: none;
-  background: transparent;
-  margin-left: 12px;
-  flex: 1;
-  font-size: 16px;
-  /* Slightly larger font for readability */
-  color: #333;
-}
-
-.searchIcon {
-  color: #a0a0a0;
-  /* Softer icon color */
-  font-size: 20px !important;
-}
-
-/* User Card Grid */
-.adminCards {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 25px;
-  /* Increased gap for more breathing room */
-}
-
-/* Individual User Card */
-.adminCard {
-  background: #ffffff;
-  padding: 25px;
-  border-radius: 16px;
-  /* Larger border-radius for a soft look */
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-}
-
-.adminCard:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
-  /* More pronounced hover effect */
-}
-
-/* User Info Section */
-.adminInfo {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-}
-
-.adminImg {
-  width: 70px;
-  /* Slightly larger image */
-  height: 70px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 3px solid #f0f2f5;
-  /* A subtle border to frame the image */
-}
-
-.adminDetails {
-  flex: 1;
-}
-
-.adminDetails h3 {
-  margin: 0;
-  font-size: 20px;
-  font-weight: 600;
-  /* Bolder for prominence */
-  color: #2c3e50;
-  /* Darker, more professional color */
-}
-
-.adminDetails p {
-  margin: 4px 0;
-  font-size: 15px;
-  color: #7f8c8d;
-  /* Muted color for secondary info */
-  line-height: 1.4;
-}
-
-
-/* Action Buttons */
-.adminAction {
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 25px;
-  /* Increased top margin */
-  gap: 15px;
-  /* More space between buttons */
-}
-
-.adminEdit {
-  border: none;
-  border-radius: 8px;
-  /* Softer buttons */
-  padding: 8px 16px;
-  background-color: #3498db;
-  /* A fresh blue for "Edit" */
-  color: white;
-  cursor: pointer;
-  font-size: 14px;
-  font-weight: 600;
-  transition: background-color 0.2s ease;
-}
-
-.adminEdit:hover {
-  background-color: #2980b9;
-}
-
-
-
-/* States for empty/no results */
-.noAdmins {
-  text-align: center;
-  color: #a0a0a0;
-  font-size: 18px;
-  margin-top: 60px;
-  /* More vertical space */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-}
-
-/* Optional: Add a simple keyframe animation for the spinner */
-@keyframes spin {
-  from {
-    transform: rotate(0deg);
+@media (max-width: 640px) {
+  .adminList {
+    padding: 16px;
   }
-
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.spinner {
-  /* assuming you have a .spinner class in your component */
-  animation: spin 1s linear infinite;
-}
-
-.pageTitle {
-  font-size: 24px;
-  font-weight: 600;
-  color: #2c3e50;
-  margin-bottom: 20px;
-}
-
-.adminAddButton {
-  padding: 10px 20px;
-  border: none;
-  background-color: #007bff;
-  color: white;
-  border-radius: 8px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-  align-self: flex-end;
-}
-
-.adminAddButton:hover {
-  background-color: #2956b3;
-}
-
-.searchFilterRow {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 15px 0;
-}
-
-.filterBar select {
-  padding: 6px 12px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  font-size: 14px;
 }

@@ -11,7 +11,7 @@ import {
     Badge,
     Home,
     AssignmentInd,
-    ExitToApp, // New icon for logout
+    ExitToApp,
 } from "@mui/icons-material";
 import { logout } from "../../context/authContext/apiCalls";
 
@@ -19,12 +19,10 @@ export default function Profile() {
     const { user, dispatch } = useContext(AuthContext);
 
     const handleLogout = () => {
-        // Dispatch a logout action
-        logout(user)
-        // Redirect or perform other cleanup
-        // For example, redirect to the login page
-        // window.location.href = "/login";
+        logout(user);
     };
+
+    const fmtDate = (d) => (d ? new Date(d).toLocaleDateString('en-GB') : "N/A");
 
     if (!user) {
         return (
@@ -35,90 +33,90 @@ export default function Profile() {
         );
     }
 
+    const sections = [
+        {
+            label: "Contact",
+            fields: [
+                { icon: <Email />, label: "Email", value: user.email, accent: "blue" },
+                { icon: <Phone />, label: "Phone", value: user.phone || "N/A", accent: "blue" },
+            ],
+        },
+        {
+            label: "Identity",
+            fields: [
+                { icon: <AssignmentInd />, label: user.identityType || "ID", value: user.identityNumber || "N/A", accent: "violet" },
+                { icon: <Badge />, label: "Gender", value: user.gender || "N/A", accent: "violet" },
+                { icon: <CalendarToday />, label: "Date of Birth", value: fmtDate(user.dob), accent: "violet" },
+            ],
+        },
+        {
+            label: "Location",
+            fields: [
+                { icon: <Home />, label: "Address", value: user.address || "N/A", accent: "green" },
+                { icon: <LocationCity />, label: "City / State", value: `${user.city || "N/A"}, ${user.state || "N/A"}`, accent: "green" },
+                { icon: <LocationCity />, label: "Branch", value: user.branch || "N/A", accent: "green" },
+                { icon: <Public />, label: "Country", value: user.country || "India", accent: "green" },
+            ],
+        },
+        {
+            label: "Account",
+            fields: [
+                { icon: <Lock />, label: "Last Login", value: fmtDate(user.lastLoggedIn), accent: "amber" },
+                { icon: <Lock />, label: "Created On", value: fmtDate(user.createdAt), accent: "amber" },
+                { icon: <Lock />, label: "Updated On", value: fmtDate(user.updatedAt), accent: "amber" },
+            ],
+        },
+    ];
+
     return (
         <div className="profile flex-4">
             <div className="profileHeaderContainer">
                 <h2 className="profileTitle">Admin Profile</h2>
                 <button onClick={handleLogout} className="logoutButton">
-                    <ExitToApp />
+                    <ExitToApp fontSize="small" />
                     <span>Logout</span>
                 </button>
             </div>
 
-            {/* Profile Card */}
             <div className="profileCard">
                 <div className="profileMainHeader">
                     <img
-                        src={
-                            user.profileImage ||
-                            "https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
-                        }
+                        src={user.profileImage || "/assets/images/logo/FullLogo.png"}
                         alt="Admin"
                         className="profileImg"
                     />
                     <div className="profileInfo">
                         <h3>{user.name}</h3>
-                        <span className={`roleBadge role-${user.role?.toLowerCase()}`}>
-                            {user.role}
-                        </span>
-                        <span className={`statusBadge ${user.status}`}>
-                            {user.status?.toUpperCase()}
-                        </span>
+                        <div className="profileBadges">
+                            <span className={`roleBadge role-${user.role?.toLowerCase()}`}>
+                                {user.role}
+                            </span>
+                            <span className={`statusBadge ${user.status}`}>
+                                <span className="statusDot" />
+                                {user.status?.toUpperCase()}
+                            </span>
+                        </div>
                     </div>
                 </div>
 
-                {/* Details Grid */}
-                <div className="profileDetails">
-                    <div className="detailItem">
-                        <Email className="detailIcon" /> {user.email}
+                {sections.map((section) => (
+                    <div className="profileSection" key={section.label}>
+                        <h4 className="profileSectionLabel">{section.label}</h4>
+                        <div className="profileDetails">
+                            {section.fields.map((f) => (
+                                <div className="detailItem" key={f.label}>
+                                    <span className={`detailIconChip detailIconChip--${f.accent}`}>
+                                        {f.icon}
+                                    </span>
+                                    <div className="detailText">
+                                        <span className="detailLabel">{f.label}</span>
+                                        <span className="detailValue">{f.value}</span>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
                     </div>
-                    <div className="detailItem">
-                        <Phone className="detailIcon" /> {user.phone || "N/A"}
-                    </div>
-                    <div className="detailItem">
-                        <AssignmentInd className="detailIcon" /> ID: {user.identityType} -{" "}
-                        {user.identityNumber || "N/A"}
-                    </div>
-                    <div className="detailItem">
-                        <Home className="detailIcon" /> {user.address || "N/A"}
-                    </div>
-                    <div className="detailItem">
-                        <LocationCity className="detailIcon" /> {user.city || "N/A"},{" "}
-                        {user.state || "N/A"}
-                    </div>
-                    <div className="detailItem">
-                        <LocationCity className="detailIcon" />
-                        Branch : {user.branch || "N/A"}
-                    </div>
-                    <div className="detailItem">
-                        <Public className="detailIcon" /> {user.country || "India"}
-                    </div>
-                    <div className="detailItem">
-                        <CalendarToday className="detailIcon" /> DOB:{" "}
-                        {user.dob ? new Date(user.dob).toLocaleDateString('en-GB') : "N/A"}
-                    </div>
-                    <div className="detailItem">
-                        <Badge className="detailIcon" /> Gender: {user.gender || "N/A"}
-                    </div>
-                    <div className="detailItem">
-                        <Lock className="detailIcon" /> Last Login:{" "}
-                        {user.lastLoggedIn
-                            ? new Date(user.lastLoggedIn).toLocaleDateString('en-GB')
-                            : "N/A"}
-                    </div>
-                    <div className="detailItem">
-                        <Lock className="detailIcon" /> Created On:{" "}
-                        {user.createdAt
-                            ? new Date(user.createdAt).toLocaleDateString('en-GB')
-                            : "N/A"}
-                    </div>
-                    <div className="detailItem">
-                        <Lock className="detailIcon" /> Updated On:{" "}
-                        {user.updatedAt
-                            ? new Date(user.updatedAt).toLocaleDateString('en-GB')
-                            : "N/A"}
-                    </div>
-                </div>
+                ))}
             </div>
         </div>
     );

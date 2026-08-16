@@ -23,7 +23,6 @@ export default function ComplaintList() {
     getComplaints(dispatch, toast);
   }, [dispatch]);
 
-  /* -------------------- TABLE COLUMNS -------------------- */
   const columns = useMemo(
     () => [
       {
@@ -44,6 +43,7 @@ export default function ComplaintList() {
         accessor: "priority",
         Cell: ({ value }) => (
           <span className={`priority ${value?.toLowerCase()}`}>
+            <span className="priorityDot" />
             {value}
           </span>
         ),
@@ -52,7 +52,7 @@ export default function ComplaintList() {
         Header: "Status",
         accessor: "status",
         Cell: ({ value }) => (
-          <span className={`status-badge ${value?.toLowerCase()}`}>
+          <span className={`status-badge status-${value?.toLowerCase().replace(/\s+/g, "-")}`}>
             {value}
           </span>
         ),
@@ -91,10 +91,8 @@ export default function ComplaintList() {
                       "Enter resolution remarks (required):"
                     );
 
-                    // Cancel clicked
                     if (adminResponse === null) return;
 
-                    // Trim once and reuse
                     const trimmedResponse = adminResponse.trim();
 
                     if (!trimmedResponse) {
@@ -109,7 +107,6 @@ export default function ComplaintList() {
                       trimmedResponse
                     );
                   }}
-
                 >
                   Resolve
                 </button>
@@ -122,7 +119,6 @@ export default function ComplaintList() {
     []
   );
 
-  /* -------------------- SEARCH + FILTER -------------------- */
   const filteredComplaints = useMemo(() => {
     return (complaints || []).filter((item) => {
       const search = searchText.toLowerCase();
@@ -140,7 +136,7 @@ export default function ComplaintList() {
   }, [complaints, searchText, statusFilter]);
 
   return (
-    <div className="container">
+    <div className="complaintList">
       <DataTable
         title="Complaints"
         data={filteredComplaints}
@@ -148,7 +144,7 @@ export default function ComplaintList() {
         searchPlaceholder="Search by name, phone, category..."
         showFilter={true}
         filterKey={'status'}
-        filterOptions={["Pending", "In Review", "Resolved","Mine"]}
+        filterOptions={["Pending", "In Review", "Resolved", "Mine"]}
         onSearch={setSearchText}
         onFilterChange={setStatusFilter}
       />

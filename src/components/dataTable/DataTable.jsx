@@ -1,9 +1,8 @@
-import React, { useMemo, useState } from "react";
-import { Search } from "@mui/icons-material";
+import React, { useMemo, useState, useContext } from "react";
+import { Search, KeyboardArrowUp, KeyboardArrowDown, UnfoldMore, ChevronLeft, ChevronRight, InboxOutlined } from "@mui/icons-material";
 import { useTable, useSortBy, usePagination } from "react-table";
 import "./dataTable.css";
 import { AuthContext } from "../../context/authContext/AuthContext";
-import { useContext } from "react";
 
 export default function DataTable({
     title = "Table",
@@ -20,15 +19,12 @@ export default function DataTable({
 }) {
     const [search, setSearch] = useState("");
     const [filter, setFilter] = useState("");
-    const { user } = useContext(AuthContext); // 👈 logged-in admin
+    const { user } = useContext(AuthContext);
 
-
-    // 🔍 Combined Search + Filter Logic
     const filteredData = useMemo(() => {
         let result = Array.isArray(data) ? [...data] : [];
         const now = new Date();
 
-        // 🔹 Text search across all string fields
         if (search) {
             const searchLower = search.toLowerCase();
 
@@ -39,9 +35,9 @@ export default function DataTable({
                     if (!val) continue;
 
                     if (typeof val === "object") {
-                        values = values.concat(flattenValues(val)); // recursively extract nested values
+                        values = values.concat(flattenValues(val));
                     } else if (typeof val === "string" || typeof val === "number") {
-                        values.push(String(val)); // convert numbers to string for matching
+                        values.push(String(val));
                     }
                 }
                 return values;
@@ -53,21 +49,17 @@ export default function DataTable({
             });
         }
 
-        // 🔹 Filter logic (driver-specific)
         const adminId = user?._id?.toString();
         switch (filter) {
-
             case "License Expired":
                 result = result.filter(
-                    (item) =>
-                        item.license_expiry && new Date(item.license_expiry) < now
+                    (item) => item.license_expiry && new Date(item.license_expiry) < now
                 );
                 break;
 
             case "Insurance Expired":
                 result = result.filter(
-                    (item) =>
-                        item.insurance_expiry && new Date(item.insurance_expiry) < now
+                    (item) => item.insurance_expiry && new Date(item.insurance_expiry) < now
                 );
                 break;
 
@@ -92,11 +84,9 @@ export default function DataTable({
                 break;
 
             default:
-                // Optional: if you want to use a generic key-based filter (like status)
                 if (filter && filterKey) {
                     result = result.filter(
-                        (item) =>
-                            item[filterKey]?.toLowerCase() === filter.toLowerCase()
+                        (item) => item[filterKey]?.toLowerCase() === filter.toLowerCase()
                     );
                 }
                 break;
@@ -126,7 +116,6 @@ export default function DataTable({
         return columns;
     }, [columns, onButtonClick]);
 
-    // ✅ react-table setup
     const {
         getTableProps,
         getTableBodyProps,
@@ -152,7 +141,6 @@ export default function DataTable({
 
     return (
         <div className="dataTable">
-            {/* Header */}
             <div className="tableHeader">
                 <h2>{title}</h2>
                 {showCreate && (
@@ -162,7 +150,6 @@ export default function DataTable({
                 )}
             </div>
 
-            {/* Search + Filter */}
             <div className="searchFilterRow">
                 <div className="searchBar">
                     <Search className="searchIcon" />
@@ -191,57 +178,67 @@ export default function DataTable({
                 )}
             </div>
 
-            {/* Table */}
-            <table {...getTableProps()} className="reactTable">
-                <thead>
-                    {headerGroups.map((hg) => (
-                        <tr key={hg.id} {...hg.getHeaderGroupProps()}>
-                            {hg.headers.map((col) => (
-                                <th
-                                    key={col.id}
-                                    {...col.getHeaderProps(col.getSortByToggleProps())}
-                                >
-                                    {col.render("Header")}
-                                    <span>
-                                        {col.isSorted
-                                            ? col.isSortedDesc
-                                                ? " 🔽"
-                                                : " 🔼"
-                                            : ""}
-                                    </span>
-                                </th>
-                            ))}
-                        </tr>
-                    ))}
-                </thead>
-                <tbody {...getTableBodyProps()}>
-                    {page.map((row) => {
-                        prepareRow(row);
-                        return (
-                            <tr key={row.id} {...row.getRowProps()}>
-                                {row.cells.map((cell) => (
-                                    <td key={cell.column.id} {...cell.getCellProps()}>
-                                        {cell.render("Cell")}
-                                    </td>
+            <div className="tableScrollWrap">
+                <table {...getTableProps()} className="reactTable">
+                    <thead>
+                        {headerGroups.map((hg) => (
+                            <tr key={hg.id} {...hg.getHeaderGroupProps()}>
+                                {hg.headers.map((col) => (
+                                    <th
+                                        key={col.id}
+                                        {...col.getHeaderProps(col.getSortByToggleProps())}
+                                    >
+                                        <span className="thContent">
+                                            {col.render("Header")}
+                                            <span className="sortIcon">
+                                                {col.isSorted ? (
+                                                    col.isSortedDesc ? <KeyboardArrowDown fontSize="inherit" /> : <KeyboardArrowUp fontSize="inherit" />
+                                                ) : (
+                                                    <UnfoldMore fontSize="inherit" className="sortIconIdle" />
+                                                )}
+                                            </span>
+                                        </span>
+                                    </th>
                                 ))}
                             </tr>
-                        );
-                    })}
-                </tbody>
-            </table>
+                        ))}
+                    </thead>
+                    <tbody {...getTableBodyProps()}>
+                        {page.map((row) => {
+                            prepareRow(row);
+                            return (
+                                <tr key={row.id} {...row.getRowProps()}>
+                                    {row.cells.map((cell) => (
+                                        <td key={cell.column.id} {...cell.getCellProps()}>
+                                            {cell.render("Cell")}
+                                        </td>
+                                    ))}
+                                </tr>
+                            );
+                        })}
+                    </tbody>
+                </table>
 
-            {/* Pagination */}
+                {page.length === 0 && (
+                    <div className="noData">
+                        <InboxOutlined style={{ fontSize: 32 }} />
+                        <span>No results found</span>
+                    </div>
+                )}
+            </div>
+
             <div className="pagination">
-                <button onClick={() => previousPage()} disabled={!canPreviousPage}>
-                    Prev
+                <button className="pageNavButton" onClick={() => previousPage()} disabled={!canPreviousPage}>
+                    <ChevronLeft fontSize="small" /> Prev
                 </button>
-                <span>
-                    Page {pageIndex + 1} of {pageOptions.length}
+                <span className="pageInfo">
+                    Page {pageIndex + 1} of {pageOptions.length || 1}
                 </span>
-                <button onClick={() => nextPage()} disabled={!canNextPage}>
-                    Next
+                <button className="pageNavButton" onClick={() => nextPage()} disabled={!canNextPage}>
+                    Next <ChevronRight fontSize="small" />
                 </button>
                 <select
+                    className="pageSizeSelect"
                     value={pageSize}
                     onChange={(e) => setPageSize(Number(e.target.value))}
                 >

@@ -1,5 +1,12 @@
 import { Link } from "react-router-dom";
 import "./driverinfo.css";
+import {
+  DirectionsCarFilledRounded,
+  AssignmentOutlined,
+  PhoneRounded,
+  EmailRounded,
+  RoomRounded,
+} from "@mui/icons-material";
 
 const getAvatar = (gender) => {
   if (gender?.toLowerCase() === "male") {
@@ -21,25 +28,34 @@ export default function DriverInfoWindow({ driver, position }) {
       className="driver-info-window"
       style={{ top: position.y, left: position.x }}
     >
-      {/* Avatar */}
       <img src={avatar} alt={driver.name} className="info-window-avatar" />
 
-      {/* Details */}
       <div className="info-window-details">
         <p className="info-window-name">{driver.name}</p>
+
         <p className="info-window-vehicle">
-          🚗 {driver.vehicle_type} ({driver.vehicle_color})
+          <DirectionsCarFilledRounded className="info-window-icon" />
+          {driver.vehicle_type} ({driver.vehicle_color})
         </p>
-        <p className="info-window-reg">📋 {driver.registration_number}</p>
-        <p className="info-window-phone">📞 {driver.phone_number}</p>
-        <p className="info-window-email">✉️ {driver.email}</p>
+        <p className="info-window-reg">
+          <AssignmentOutlined className="info-window-icon" />
+          {driver.registration_number}
+        </p>
+        <p className="info-window-phone">
+          <PhoneRounded className="info-window-icon" />
+          {driver.phone_number}
+        </p>
+        <p className="info-window-email">
+          <EmailRounded className="info-window-icon" />
+          {driver.email}
+        </p>
         <p className="info-window-coords">
-          📍 Lat: {driver.latitude?.toFixed(4)} | Lng:{" "}
-          {driver.longitude?.toFixed(4)}
+          <RoomRounded className="info-window-icon" />
+          {driver.latitude?.toFixed(4)}, {driver.longitude?.toFixed(4)}
         </p>
 
         {/* Link to details page */}
-       
+        {/* <Link to={`/driver/${driver.id}`} className="info-window-link">View profile →</Link> */}
       </div>
     </div>
   );

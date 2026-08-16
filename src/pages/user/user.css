@@ -1,70 +1,74 @@
-/* General Page Layout */
 .user {
   flex: 4;
-  padding: 30px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
   min-height: 100vh;
+  background: var(--stark-bg);
+  box-sizing: border-box;
+  overflow-x: scroll;
+  scrollbar-width: none;
 }
 
-/* Page Header */
 .userTitleContainer {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 30px;
 }
 
 .userTitle {
-  font-size: 28px;
-  font-weight: 700;
-  color: #2c3e50; /* Dark, professional color */
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--stark-text);
+  margin: 0;
 }
 
-.userAddButton {
-  padding: 10px 20px;
-  border: none;
-  background-color: #007bff;
-  color: white;
-  border-radius: 8px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+.notFoundCard {
+  background: var(--stark-surface);
+  border: 1px solid var(--stark-border);
+  border-radius: 14px;
+  padding: 40px;
+  text-align: center;
+  color: var(--stark-text-dim);
+  font-size: 14px;
 }
 
-.userAddButton:hover {
-  background-color: #0056b3;
-}
-
-/* Main Content Container */
+/* Main grid */
 .userContainer {
-  display: flex;
-  gap: 30px;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  gap: 20px;
+  align-items: start;
 }
 
-/* User Info Card Styling */
+/* Left card */
 .userShow {
-  flex: 3;
-  padding: 25px;
-  background: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); /* Soft, elegant shadow */
-  width: 90%;
+  background: var(--stark-surface);
+  border: 1px solid var(--stark-border);
+  border-radius: 16px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
 }
 
 .userShowTop {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 18px;
   padding-bottom: 20px;
-  border-bottom: 1px solid #e0e0e0;
+  border-bottom: 1px solid var(--stark-border);
 }
 
 .userShowImg {
-  width: 80px;
-  height: 80px;
+  width: 72px;
+  height: 72px;
   border-radius: 50%;
   object-fit: cover;
-  border: 4px solid #f0f2f5;
+  border: 3px solid var(--stark-bg);
+  box-shadow: 0 0 0 1px var(--stark-border);
 }
 
 .userShowTopTitle {
@@ -73,84 +77,111 @@
 }
 
 .userShowUsername {
-  font-size: 22px;
+  font-family: var(--font-display);
+  font-size: 19px;
   font-weight: 600;
-  color: #333;
+  color: var(--stark-text);
 }
 
 .userShowUserTitle {
-  font-size: 14px;
-  color: #888;
-  margin-top: 2px;
+  font-size: 12.5px;
+  color: var(--stark-text-dim);
+  margin-top: 3px;
 }
 
-/* Bottom Section with Details */
-.userShowBottom {
-  margin-top: 25px;
+.userInfoSection {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
 .userShowTitle {
-  font-size: 18px;
+  font-family: var(--font-display);
+  font-size: 11.5px;
   font-weight: 600;
-  color: #555;
-  margin-bottom: 15px;
-  position: relative;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--stark-text-dim);
 }
 
-.userShowTitle::after {
-  content: "";
-  display: block;
-  width: 50px;
-  height: 3px;
-  background-color: #007bff;
-  margin-top: 5px;
-  border-radius: 2px;
+.userInfoGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 10px;
 }
 
 .userShowInfo {
   display: flex;
   align-items: center;
-  margin-top: 10px;
-  margin-bottom: 15px;
   gap: 12px;
+  background: var(--stark-bg);
+  border: 1px solid var(--stark-border);
+  border-radius: 11px;
+  padding: 11px 13px;
 }
 
-.userShowIcon {
-  font-size: 20px !important;
-  color: #888;
+.userShowIconChip {
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.userShowInfoTitle {
-  font-size: 15px;
-  color: #666;
+.userShowIconChip svg { font-size: 16px !important; }
+
+.userShowIconChip--blue   { background: rgba(47, 92, 255, 0.14); color: var(--stark-blue); }
+.userShowIconChip--violet { background: rgba(124, 92, 255, 0.14); color: var(--stark-violet); }
+.userShowIconChip--green  { background: rgba(18, 183, 106, 0.14); color: var(--stark-green); }
+.userShowIconChip--amber  { background: rgba(247, 144, 9, 0.14); color: var(--stark-amber); }
+
+.userShowInfoText {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
 }
 
-/* User Update/Edit Form Styling */
+.userShowInfoLabel {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--stark-text-dim);
+}
+
+.userShowInfoValue {
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--stark-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Right card — edit form */
 .userUpdate {
-  flex: 1;
-  padding: 25px;
-  background: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-  margin-left: 0px;
+  background: var(--stark-surface);
+  border: 1px solid var(--stark-border);
+  border-radius: 16px;
+  padding: 24px;
+  position: sticky;
+  top: 24px;
 }
 
 .userUpdateTitle {
-  font-size: 24px;
+  font-family: var(--font-display);
+  font-size: 15px;
   font-weight: 600;
-  color: #333;
+  color: var(--stark-text);
 }
 
 .userUpdateForm {
   display: flex;
-  justify-content: space-between;
-  margin-top: 20px;
-}
-
-.userUpdateLeft {
-  display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 16px;
+  margin-top: 18px;
 }
 
 .userUpdateItem {
@@ -159,107 +190,86 @@
 }
 
 .userUpdateItem > label {
-  margin-bottom: 5px;
-  font-size: 14px;
-  color: #7f8c8d;
+  margin-bottom: 6px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--stark-text-muted);
 }
 
 .userUpdateInput {
-  width: 100%;
-  height: 40px;
-  padding: 0 15px;
-  border: 1px solid #e0e0e0;
-  border-radius: 8px;
-  font-size: 16px;
-  color: #333;
-  transition: border-color 0.3s ease;
+  height: 42px;
+  padding: 0 14px;
+  border: 1px solid var(--stark-border);
+  border-radius: 10px;
+  font-size: 13.5px;
+  font-family: var(--font-body);
+  color: var(--stark-text);
+  background: var(--stark-surface);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
 .userUpdateInput:focus {
   outline: none;
-  border-color: #3498db;
+  border-color: var(--stark-blue);
+  box-shadow: 0 0 0 3px var(--stark-blue-soft);
 }
 
-.userUpdateRight {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
-  gap: 20px;
-}
-
-.userUpdateUpload {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-}
-
-.userUpdateImg {
-  width: 100px;
-  height: 100px;
-  border-radius: 10px;
-  object-fit: cover;
-  border: 2px solid #ddd;
-}
-
-.userUpdateIcon {
-  cursor: pointer;
-  font-size: 24px !important;
-  color: #007bff;
-  transition: color 0.3s ease;
-}
-
-.userUpdateIcon:hover {
-  color: #0056b3;
-}
-
-/* Specific icon color overrides */
-.userUpdateUpload .MuiSvgIcon-root:nth-child(2) {
-  color: #dc3545; /* Remove icon color */
-}
-
-/* Progress bar styling */
-.progressBarContainer {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 5px;
-}
-
-.progressBarContainer progress {
-  width: 100%;
-  height: 10px;
-  border-radius: 5px;
-  border: none;
-  background-color: #e9ecef;
-}
-
-.progressBarContainer progress::-webkit-progress-value {
-  background-color: #28a745;
-  border-radius: 5px;
-}
-
-.progressBarContainer span {
-  font-size: 12px;
-  color: #6c757d;
-}
-
-/* Update Button */
 .userUpdateButton {
-  width: 100%;
   padding: 12px;
   border: none;
-  border-radius: 8px;
-  background-color: #28a745;
+  border-radius: 10px;
+  background: var(--stark-blue);
   color: white;
   font-weight: 600;
+  font-size: 13.5px;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-  margin-top: auto; /* Pushes the button to the bottom of the flex container */
+  transition: background 0.15s ease;
+  margin-top: 4px;
 }
 
 .userUpdateButton:hover {
-  background-color: #218838;
-  transform: translateY(-2px);
+  background: #2648D6;
+}
+
+/* Recent rides */
+.recentRidesSection {
+  width: 100%;
+}
+
+.rideStatusTag {
+  padding: 4px 11px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.rideStatusTag--booked     { background: rgba(124, 92, 255, 0.12); color: var(--stark-violet); }
+.rideStatusTag--processing { background: rgba(247, 144, 9, 0.12);  color: var(--stark-amber); }
+.rideStatusTag--arrived    { background: rgba(47, 92, 255, 0.12);  color: var(--stark-blue); }
+.rideStatusTag--ongoing    { background: rgba(47, 92, 255, 0.12);  color: var(--stark-blue); }
+.rideStatusTag--reached    { background: rgba(18, 183, 106, 0.12); color: var(--stark-green); }
+.rideStatusTag--completed  { background: rgba(18, 183, 106, 0.12); color: var(--stark-green); }
+.rideStatusTag--cancelled  { background: rgba(240, 68, 56, 0.12);  color: var(--stark-danger); }
+
+.fareCell {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--stark-text);
+}
+
+@media (max-width: 900px) {
+  .userContainer {
+    grid-template-columns: 1fr;
+  }
+
+  .userUpdate {
+    position: static;
+  }
+}
+
+@media (max-width: 640px) {
+  .user { padding: 16px; }
 }

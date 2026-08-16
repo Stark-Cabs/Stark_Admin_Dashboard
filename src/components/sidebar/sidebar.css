@@ -1,76 +1,145 @@
 .sidebar {
   flex: 1;
   height: calc(100vh - 50px);
-  background-color: rgb(251, 251, 255);
+  background: var(--stark-navy);
   position: sticky;
   top: 50px;
   transition: transform 0.3s ease-in-out;
+  border-right: 1px solid var(--stark-navy-border);
+  padding-bottom: 50px;
+  overflow-y: auto;
+  scrollbar-width: none;
+  /* Firefox */
+  -ms-overflow-style: none;
+  /* IE/Edge */
+
+  &::-webkit-scrollbar {
+    display: none;
+    /* Chrome, Safari, Edge */
+  }
 }
+
 .sidebarWrapper {
-  padding: 20px;
-  color: #555;
+  padding: 20px 12px;
 }
 
 .sidebarMenu {
-  margin-bottom: 10px;
+  margin-bottom: 22px;
 }
 
 .sidebarTitle {
-  font-size: 13px;
-  color: rgb(187, 186, 186);
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--stark-text-dim);
+  padding: 0 10px 8px;
 }
 
 .sidebarList {
   list-style: none;
-  padding: 5px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.link {
+  text-decoration: none;
 }
 
 .sidebarListItem {
-  padding: 5px;
+  position: relative;
+  padding: 9px 12px 9px 10px;
   cursor: pointer;
   display: flex;
   align-items: center;
-  border-radius: 10px;
+  gap: 10px;
+  border-radius: 8px;
+  font-size: 13.5px;
+  font-weight: 500;
+  color: #AEB6C9;
+  border-left: 3px solid transparent;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
 }
 
-.sidebarListItem.active,
 .sidebarListItem:hover {
-  background-color: rgb(240, 240, 255);
+  background: var(--stark-navy-soft);
+  color: #ffffff;
+}
+
+.sidebarListItem.active {
+  background: var(--stark-navy-soft);
+  color: #ffffff;
+  border-left-color: var(--group-accent, var(--stark-blue));
+}
+
+.iconChip {
+  width: 28px;
+  height: 28px;
+  min-width: 28px;
+  border-radius: 7px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: color-mix(in srgb, var(--group-accent, var(--stark-blue)) 16%, transparent);
+  color: var(--group-accent, var(--stark-blue));
+  transition: background 0.15s ease;
+}
+
+.sidebarListItem:hover .iconChip,
+.sidebarListItem.active .iconChip {
+  background: color-mix(in srgb, var(--group-accent, var(--stark-blue)) 28%, transparent);
 }
 
 .sidebarIcon {
-  margin-right: 5px;
-  font-size: 20px !important;
+  font-size: 17px !important;
 }
 
+/* Category accents — the signature: each group gets its own hue */
+.group-dashboard {
+  --group-accent: var(--stark-blue);
+}
 
-/* ✅ Mobile version */
+.group-quick {
+  --group-accent: var(--stark-violet);
+}
+
+.group-rides {
+  --group-accent: var(--stark-green);
+}
+
+.group-staff {
+  --group-accent: var(--stark-amber);
+}
+
+/* Mobile version */
 @media screen and (max-width: 1024px) {
   .sidebar {
     position: fixed;
     left: 0;
     top: 50px;
     height: 100vh;
-    width: 240px;
-    background-color: rgb(251, 251, 255);
+    width: 250px;
     transform: translateX(-100%);
-    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 4px 0 24px rgba(0, 0, 0, 0.25);
+    padding-bottom: 50px;
     z-index: 1100;
   }
 
   .sidebar.open {
-    transform: translateX(0); /* ✅ Bring it into view */
+    transform: translateX(0);
   }
 }
 
-
-/* ✅ Overlay for outside click */
 .overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(11, 18, 32, 0.55);
+  backdrop-filter: blur(2px);
   z-index: 1000;
 }

@@ -10,6 +10,7 @@ export default function PackageList() {
     const { packages, dispatch } = useContext(PackagesContext);
     const [showModal, setShowModal] = useState(false);
     const [selectedTrip, setSelectedTrip] = useState(null);
+
     useEffect(() => {
         getPackages(dispatch, toast);
     }, [dispatch]);
@@ -21,22 +22,40 @@ export default function PackageList() {
             {
                 Header: "Start Date",
                 accessor: "startDate",
-                Cell: ({ value }) => new Date(value).toLocaleString(),
+                Cell: ({ value }) => (value ? new Date(value).toLocaleString("en-IN", {
+                    day: "2-digit", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit",
+                }) : "N/A"),
             },
             {
                 Header: "End Date",
                 accessor: "endDate",
-                Cell: ({ value }) => new Date(value).toLocaleString(),
+                Cell: ({ value }) => (value ? new Date(value).toLocaleString("en-IN", {
+                    day: "2-digit", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit",
+                }) : "N/A"),
             },
-            { Header: "Cab Type", accessor: "cabType" },
-            { Header: "Priority", accessor: "priority" },
+            {
+                Header: "Cab Type",
+                accessor: "cabType",
+                Cell: ({ value }) => <span className="cabTag">{value}</span>,
+            },
+            {
+                Header: "Priority",
+                accessor: "priority",
+                Cell: ({ value }) => (
+                    <span className={`priorityTag priorityTag--${value?.toLowerCase()}`}>
+                        {value}
+                    </span>
+                ),
+            },
             { Header: "Contact", accessor: "contactNumber" },
             {
                 Header: "Last Updated",
                 accessor: "updatedAt",
                 Cell: ({ value }) => {
                     if (!value) return "N/A";
-                    return new Date(value).toLocaleString();
+                    return new Date(value).toLocaleString("en-IN", {
+                        day: "2-digit", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit",
+                    });
                 },
             },
         ],
@@ -68,7 +87,7 @@ export default function PackageList() {
     };
 
     return (
-        <div className="container">
+        <div className="packageList">
             <DataTable
                 title="Packages"
                 data={packages || []}
@@ -85,7 +104,7 @@ export default function PackageList() {
                 show={showModal}
                 onClose={() => setShowModal(false)}
                 onSubmit={handleSubmit}
-                onDelete={handleDelete}   // 👈 ADD THIS
+                onDelete={handleDelete}
                 initialData={selectedTrip}
             />
         </div>

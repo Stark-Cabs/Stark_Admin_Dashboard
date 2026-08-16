@@ -3,10 +3,9 @@ import { useDriverStore } from "../../store/driverStore";
 import getVehicleIcon from "../../utils/getVehicleIcon";
 import socketService from "../../utils/socketServices";
 import "./map.css";
-import axios from "axios";
 import { Link } from "react-router-dom";
 import DriverInfoWindow from "../../components/driverInfoWindow/driverInfoWindow";
-import { FaChevronLeft, FaChevronRight } from "react-icons/fa"; // Import icons
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import axiosInstance from "../../api/axiosInstance";
 
 export default function Map() {
@@ -17,9 +16,8 @@ export default function Map() {
     const mapInstanceRef = useRef(null);
     const [hoveredDriver, setHoveredDriver] = useState(null);
     const [infoWindowPosition, setInfoWindowPosition] = useState({ x: 0, y: 0 });
-    const [isPanelOpen, setIsPanelOpen] = useState(true); // State for panel visibility
+    const [isPanelOpen, setIsPanelOpen] = useState(true);
 
-    // Initialize Google Map
     useEffect(() => {
         if (!window.google) {
             console.error("Google Maps not loaded!");
@@ -35,7 +33,6 @@ export default function Map() {
         mapInstanceRef.current = map;
     }, []);
 
-    // Handle socket connections & updates
     useEffect(() => {
         socketService.connectAsAdmin();
 
@@ -92,12 +89,9 @@ export default function Map() {
             typeof driver.longitude === "number"
     );
 
-
-    // Update markers when drivers change
     useEffect(() => {
         if (!mapInstanceRef.current) return;
 
-        // Clear old markers
         Object.values(markersRef.current).forEach((marker) => marker.setMap(null));
         markersRef.current = {};
 
@@ -106,20 +100,18 @@ export default function Map() {
 
             const heading = driver.heading;
 
-            // If vehicle type is auto, rotate 180° extra
             const finalHeading =
                 driver.vehicle_type === "Auto"
                     ? (heading + 180)
                     : heading;
-
 
             const icon = document.createElement("img");
             icon.src = getVehicleIcon(driver.vehicle_type);
             icon.style.width = "40px";
             icon.style.height = "50px";
             icon.style.transform = `rotate(${finalHeading}deg)`;
-            icon.style.transformOrigin = "center"; // rotate around center
-            icon.style.cursor = "pointer"; // Indicate interactivity
+            icon.style.transformOrigin = "center";
+            icon.style.cursor = "pointer";
 
             const marker = new window.google.maps.marker.AdvancedMarkerElement({
                 position: { lat: driver.latitude, lng: driver.longitude },
@@ -127,7 +119,6 @@ export default function Map() {
                 content: icon,
             });
 
-            // Hover events
             icon.addEventListener("mouseenter", (e) => {
                 setHoveredDriver(driver);
                 const mapRect = mapRef.current.getBoundingClientRect();
@@ -145,7 +136,6 @@ export default function Map() {
         });
     }, [driverLists]);
 
-    // Avatar selection based on gender
     const getAvatar = (gender) => {
         if (gender?.toLowerCase() === "male") {
             return "https://i.pravatar.cc/150?img=12";
@@ -164,56 +154,56 @@ export default function Map() {
         <div className="mapWrapper">
             <h2 className="pageTitle">Driver Live Map</h2>
 
-            <div ref={mapRef} className="mapContainer"></div>
+            <div className="mapArea">
+                <div ref={mapRef} className="mapContainer"></div>
 
-            {/* Custom Floating InfoWindow */}
-            {hoveredDriver && <DriverInfoWindow driver={hoveredDriver} position={infoWindowPosition} />}
+                {hoveredDriver && <DriverInfoWindow driver={hoveredDriver} position={infoWindowPosition} />}
 
+                <div className={`driverPanel ${isPanelOpen ? "open" : "closed"}`}>
+                    <button className="toggle-btn" onClick={togglePanel} aria-label="Toggle driver panel">
+                        {isPanelOpen ? <FaChevronRight /> : <FaChevronLeft />}
+                    </button>
 
-            {/* Floating Driver Panel and its separate toggle button */}
-            {/* The toggle button is now separate from the panel itself */}
-            <button className={`toggle-btn ${isPanelOpen ? "open" : "closed"}`} onClick={togglePanel}>
-                {isPanelOpen ? <FaChevronRight /> : <FaChevronLeft />}
-            </button>
+                    <div className="panel-content">
+                        <div className="panelHeader">
+                            <span className="liveDot" />
+                            <h2 className="panelTitle">Live Drivers</h2>
+                            <span className="panelCount">{driversWithCoords.length}</span>
+                        </div>
 
-            <div className={`driverPanel ${isPanelOpen ? "open" : "closed"}`}>
-                <div className="panel-content">
-                    <h2 className="panelTitle"> Live Drivers ({driversWithCoords.length})
-                    </h2>
-                    <ul className="driverList">
-
-                        {driverLoader ? (
-                            <li className="loadingItem">Loading drivers...</li>
-                        ) : driversWithCoords.length === 0 ? (
-                            <li className="noDrivers">No active drivers found.</li>
-                        ) : (
-                            driversWithCoords.map((driver) => (
-                                <Link
-                                    className="link"
-                                    to={`/driver/${driver.id}`}
-                                    key={driver.id}
-                                    state={{ driverId: driver.id }}
-                                >
-                                    <li className="driverItem">
-                                        <img
-                                            src={driver.profilePic || getAvatar(driver.gender)}
-                                            className="panelProfile"
-                                            alt=""
-                                        />
-                                        <div>
-                                            <p className="driverName">{driver.name}</p>
-                                            <p className="driverCoords">
-                                                {driver.registration_number}, {driver.vehicle_type}
-                                            </p>
-                                        </div>
-                                    </li>
-                                </Link>
-                            ))
-                        )}
-
-                    </ul>
+                        <ul className="driverList">
+                            {driverLoader ? (
+                                <li className="loadingItem">Loading drivers…</li>
+                            ) : driversWithCoords.length === 0 ? (
+                                <li className="noDrivers">No active drivers found.</li>
+                            ) : (
+                                driversWithCoords.map((driver) => (
+                                    <Link
+                                        className="link"
+                                        to={`/driver/${driver.id}`}
+                                        key={driver.id}
+                                        state={{ driverId: driver.id }}
+                                    >
+                                        <li className="driverItem">
+                                            <img
+                                                src={driver.profilePic || getAvatar(driver.gender)}
+                                                className="panelProfile"
+                                                alt=""
+                                            />
+                                            <div className="driverText">
+                                                <p className="driverName">{driver.name}</p>
+                                                <p className="driverCoords">
+                                                    {driver.registration_number}, {driver.vehicle_type}
+                                                </p>
+                                            </div>
+                                        </li>
+                                    </Link>
+                                ))
+                            )}
+                        </ul>
+                    </div>
                 </div>
             </div>
-        </div >
+        </div>
     );
 }

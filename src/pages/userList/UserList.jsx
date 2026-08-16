@@ -17,19 +17,16 @@ export default function UserList() {
 
   const navigate = useNavigate();
 
-  // ✅ Fetch users
   useEffect(() => {
     getUsers(dispatch);
   }, [dispatch]);
 
-  // ✅ Latest users first
   const sortedUsers = useMemo(() => {
     return [...users].sort(
       (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
     );
   }, [users]);
 
-  // ✅ Table columns
   const columns = useMemo(
     () => [
       {
@@ -39,42 +36,22 @@ export default function UserList() {
           <img
             src={
               row.original.profilePic ||
-              "https://th.bing.com/th?id=OIP.EwG6x9w6RngqsKrPJYxULAHaHa"
+              "/assets/images/logo/IconOnly.png"
             }
             alt={row.original.name || "User"}
             className="tableImg"
           />
         ),
       },
-
-      {
-        Header: "Name",
-        accessor: "name",
-      },
-
-      {
-        Header: "Email",
-        accessor: "email",
-      },
-
-      {
-        Header: "Phone",
-        accessor: "phone_number",
-      },
-
-      {
-        Header: "Total Rides",
-        accessor: "totalRides",
-      },
-
+      { Header: "Name", accessor: "name" },
+      { Header: "Email", accessor: "email" },
+      { Header: "Phone", accessor: "phone_number" },
+      { Header: "Total Rides", accessor: "totalRides" },
       {
         Header: "Ratings",
         accessor: "ratings",
-        Cell: ({ value }) =>
-          value ? `⭐ ${value.toFixed(1)}` : "N/A",
+        Cell: ({ value }) => (value ? `⭐ ${value.toFixed(1)}` : "N/A"),
       },
-
-      // ✅ Created On
       {
         Header: "Created On",
         accessor: "createdAt",
@@ -87,8 +64,6 @@ export default function UserList() {
               })
             : "N/A",
       },
-
-      // ✅ Updated On
       {
         Header: "Updated On",
         accessor: "updatedAt",
@@ -107,21 +82,16 @@ export default function UserList() {
 
   return (
     <div className="userList">
-      <h2 className="pageTitle">Users</h2>
+      {/* <h2 className="pageTitle">Users</h2> */}
 
-      <Chart
-        data={userStats}
-        title="User Analytics"
-        grid
-        dataKey="New User"
-      />
+      <Chart data={userStats} title="User Analytics" grid dataKey="New Users" accent="blue" />
 
       {loading ? (
         <Spinner />
       ) : (
         <DataTable
           title="Users"
-          data={sortedUsers} // ✅ latest first
+          data={sortedUsers}
           columns={columns}
           showCreate={false}
           searchPlaceholder="Search users by name, email, or phone..."

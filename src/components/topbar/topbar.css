@@ -1,125 +1,153 @@
 .topbar {
   width: 100%;
   height: 50px;
-  background-color: white;
+  background: var(--stark-surface);
   position: sticky;
   top: 0;
   z-index: 999;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+  border-bottom: 1px solid var(--stark-border);
 }
 
 .topbarWrapper {
   height: 100%;
-  padding: 0px 20px;
+  padding: 0 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-.logo {
-  font-family: "TT-Octosquares-Medium";
-  font-weight: lighter;
-  font-size: 30px;
-  /* color: #142bdd; */
-  cursor: pointer;
-}
-
 .topLeft {
   display: flex;
   align-items: center;
+  gap: 14px;
+}
+
+.logoLink {
+  display: flex;
+  align-items: center;
+}
+
+.logoImg {
+  height: 50px;
+  width: auto;
+  display: block;
+}
+
+.hamburgerMenu {
+  display: none;
+  cursor: pointer;
+  color: var(--stark-text-muted);
 }
 
 .topRight {
   display: flex;
   align-items: center;
+  gap: 18px;
 }
 
 .topbarIconContainer {
   position: relative;
   cursor: pointer;
-  margin-right: 10px;
-  color: #555;
+  color: var(--stark-text-muted);
+  display: flex;
+  transition: color 0.15s ease;
+}
+
+.topbarIconContainer:hover {
+  color: var(--stark-text);
 }
 
 .topIconBadge {
   width: 15px;
   height: 15px;
   position: absolute;
-  top: -5px;
-  right: 0px;
-  background-color: red;
+  top: -6px;
+  right: -6px;
+  background: var(--stark-danger);
   color: white;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 10px;
+  font-size: 9px;
+  font-weight: 600;
+}
+
+.profileMenu {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  padding: 4px 8px 4px 4px;
+  border-radius: 20px;
+  transition: background 0.15s ease;
+}
+
+.profileMenu:hover {
+  background: var(--stark-bg);
 }
 
 .topAvatar {
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
-  cursor: pointer;
+  object-fit: cover;
+}
+
+.profileName {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--stark-text);
+}
+
+.profileCaret {
+  font-size: 18px !important;
+  color: var(--stark-text-muted);
 }
 
 .options {
   display: none;
-  border-radius: 5px;
-  border: 1px solid black;
-  background-color: black;
-}
-
-.options span {
-  padding: 10px;
-  cursor: pointer;
-  color: #fefefe;
-}
-.options .lin span {
-  padding: 10px;
-  cursor: pointer;
-  color: #fefefe;
-}
-
-.topbarIconContainer:hover .options {
-  display: flex;
   flex-direction: column;
   position: absolute;
-  top: 20px;
+  top: 42px;
   right: 0;
+  min-width: 140px;
+  background: var(--stark-surface);
+  border: 1px solid var(--stark-border);
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(16, 24, 40, 0.12);
+  overflow: hidden;
   z-index: 100;
 }
 
-/* HAMBURGER (hidden on desktop) */
-.topRight .hamburger {
-  display: none;
-  margin-right: 10px;
-  cursor: pointer;
-  color: #142bdd;
+.profileMenu:hover .options {
+  display: flex;
 }
 
-/* RESPONSIVE STYLES */
+.optionLink {
+  padding: 10px 14px;
+  font-size: 13px;
+  color: var(--stark-text);
+  text-decoration: none;
+  transition: background 0.15s ease;
+}
+
+.optionLink:hover {
+  background: var(--stark-bg);
+}
+
+/* Responsive */
 @media screen and (max-width: 1024px) {
-  .logo {
-    font-size: 24px;
+  .logoImg {
+    height: 50px;
   }
 
-  .topRight {
-    gap: 8px;
-  }
-
-  /* Hide notifications & language on small screens */
-  .topbarIconContainer:nth-child(1),
-  .topbarIconContainer:nth-child(2) {
+  .profileName {
     display: none;
   }
 
-  .topAvatar {
-    width: 32px;
-    height: 32px;
-  }
-
-  .topRight .hamburger {
+  .hamburgerMenu {
     display: block;
   }
 }
