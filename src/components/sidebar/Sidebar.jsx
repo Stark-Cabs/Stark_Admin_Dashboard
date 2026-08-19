@@ -12,6 +12,7 @@ import {
   Payments,
   LocalTaxi,
   CurrencyRupee,
+  NotificationsActive,
 } from '@mui/icons-material';
 import { Link } from "react-router-dom";
 import { useState } from "react";
@@ -123,21 +124,22 @@ export default function Sidebar({ className, onMenuClick }) {
           </ul>
         </div>
 
-        <div className="sidebarMenu group-staff">
-          <h3 className="sidebarTitle">Staff</h3>
+        <div className="sidebarMenu group-notifications">
+          <h3 className="sidebarTitle">Communication</h3>
+
           <ul className="sidebarList">
-            <li className={`sidebarListItem ${activeMenu === "manage" ? "active" : ""}`} onClick={() => handleMenuClick("manage")}>
-              <span className="iconChip"><WorkOutline className="sidebarIcon" /></span>
-              Manage
-            </li>
-            <li className={`sidebarListItem ${activeMenu === "staff-analytics" ? "active" : ""}`} onClick={() => handleMenuClick("staff-analytics")}>
-              <span className="iconChip"><Timeline className="sidebarIcon" /></span>
-              Analytics
-            </li>
-            <li className={`sidebarListItem ${activeMenu === "reports" ? "active" : ""}`} onClick={() => handleMenuClick("reports")}>
-              <span className="iconChip"><Report className="sidebarIcon" /></span>
-              Reports
-            </li>
+            <Link to="/notifications" className="link">
+              <li
+                className={`sidebarListItem ${activeMenu === "notifications" ? "active" : ""
+                  }`}
+                onClick={() => handleMenuClick("notifications")}
+              >
+                <span className="iconChip">
+                  <NotificationsActive className="sidebarIcon" />
+                </span>
+                Notifications
+              </li>
+            </Link>
           </ul>
         </div>
 

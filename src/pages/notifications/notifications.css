@@ -1,0 +1,314 @@
+.notifications {
+  flex: 4;
+  padding: 24px;
+  min-height: 100vh;
+  background: var(--stark-bg);
+  box-sizing: border-box;
+  overflow-x: scroll;
+  scrollbar-width: none;
+}
+
+.notificationsHeader {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.notificationsHeaderIcon {
+  width: 46px;
+  height: 46px;
+  min-width: 46px;
+  border-radius: 12px;
+  background: var(--stark-blue-soft);
+  color: var(--stark-blue);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.notificationsHeaderIcon svg { font-size: 22px; }
+
+.notificationsTitle {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--stark-text);
+  margin: 0;
+}
+
+.notificationsSubtitle {
+  font-size: 13px;
+  color: var(--stark-text-muted);
+  margin: 3px 0 0;
+}
+
+.notificationsLayout {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 20px;
+  align-items: start;
+}
+
+/* Form card */
+.notificationsCard {
+  background: var(--stark-surface);
+  border: 1px solid var(--stark-border);
+  border-radius: 16px;
+  padding: 26px;
+}
+
+.formField {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.formField label {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--stark-text-muted);
+  margin-bottom: 8px;
+}
+
+.fieldLabelRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 8px;
+}
+
+.fieldLabelRow label { margin-bottom: 0; }
+
+.charCount {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--stark-text-dim);
+}
+
+.charCount.over {
+  color: var(--stark-danger);
+  font-weight: 600;
+}
+
+.notificationsCard input,
+.notificationsCard textarea {
+  padding: 11px 14px;
+  border: 1px solid var(--stark-border);
+  border-radius: 10px;
+  font-size: 13.5px;
+  font-family: var(--font-body);
+  color: var(--stark-text);
+  background: var(--stark-surface);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  resize: vertical;
+}
+
+.notificationsCard input:focus,
+.notificationsCard textarea:focus {
+  outline: none;
+  border-color: var(--stark-blue);
+  box-shadow: 0 0 0 3px var(--stark-blue-soft);
+}
+
+.notificationsCard textarea {
+  min-height: 110px;
+  line-height: 1.5;
+}
+
+/* Target selector */
+.targetGroup {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.targetOption {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 15px;
+  border-radius: 10px;
+  border: 1px solid var(--stark-border);
+  background: var(--stark-surface);
+  color: var(--stark-text-muted);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.targetOptionIcon {
+  display: flex;
+  font-size: 16px;
+}
+
+.targetOptionIcon svg { font-size: 16px !important; }
+
+.targetOption--blue.active   { background: var(--stark-blue-soft);   border-color: var(--stark-blue);   color: var(--stark-blue); }
+.targetOption--violet.active { background: rgba(124,92,255,0.12);    border-color: var(--stark-violet); color: var(--stark-violet); }
+.targetOption--green.active  { background: rgba(18,183,106,0.12);    border-color: var(--stark-green);  color: var(--stark-green); }
+
+.targetOption:hover:not(.active) {
+  background: var(--stark-bg);
+}
+
+/* Send button */
+.sendButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 13px;
+  border: none;
+  border-radius: 10px;
+  background: var(--stark-blue);
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s ease;
+  margin-top: 4px;
+}
+
+.sendButton:hover:not(:disabled) { background: #2648D6; }
+
+.sendButton:disabled {
+  background: #C9CEDA;
+  cursor: not-allowed;
+}
+
+/* Preview card */
+.previewCard {
+  background: var(--stark-surface);
+  border: 1px solid var(--stark-border);
+  border-radius: 16px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: sticky;
+  top: 24px;
+}
+
+.previewLabel {
+  align-self: flex-start;
+  font-family: var(--font-display);
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--stark-text-dim);
+  margin-bottom: 18px;
+}
+
+.phoneMock {
+  width: 100%;
+  max-width: 280px;
+  background: var(--stark-navy);
+  border-radius: 24px;
+  padding: 16px 12px 40px;
+  position: relative;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+}
+
+.phoneNotch {
+  width: 60px;
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.15);
+  margin: 0 auto 16px;
+}
+
+.pushBanner {
+  display: flex;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(6px);
+  border-radius: 14px;
+  padding: 12px;
+}
+
+.pushIcon {
+  width: 30px;
+  height: 30px;
+  min-width: 30px;
+  border-radius: 8px;
+  background: var(--stark-blue-soft);
+  color: var(--stark-blue);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pushContent {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  flex: 1;
+}
+
+.pushTopRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2px;
+}
+
+.pushApp {
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--stark-text-dim);
+}
+
+.pushTime {
+  font-size: 10.5px;
+  color: var(--stark-text-dim);
+}
+
+.pushTitle {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--stark-text);
+  margin-bottom: 2px;
+  overflow-wrap: break-word;
+}
+
+.pushBody {
+  font-size: 12.5px;
+  color: var(--stark-text-muted);
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.previewTargetNote {
+  margin-top: 18px;
+  font-size: 12.5px;
+  color: var(--stark-text-muted);
+  text-align: center;
+}
+
+.previewTargetNote strong {
+  color: var(--stark-text);
+}
+
+@media (max-width: 900px) {
+  .notificationsLayout {
+    grid-template-columns: 1fr;
+  }
+
+  .previewCard {
+    position: static;
+  }
+}
+
+@media (max-width: 600px) {
+  .notifications { padding: 16px; }
+  .notificationsCard { padding: 18px; }
+}
