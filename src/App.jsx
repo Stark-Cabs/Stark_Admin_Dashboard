@@ -23,7 +23,7 @@ import RideList from "./pages/rideList/RideList";
 import FareList from "./pages/fareList/FareList";
 import ComplaintList from "./pages/complaintsList/ComplaintList";
 import PackageList from "./pages/packageList/PackageList";
-import TransactionList from "./pages/transactionList/TransactionList";
+import TransactionList from "./pages/transactionList/transactionList";
 import Notification from "./pages/notifications/Notifications";
 
 
