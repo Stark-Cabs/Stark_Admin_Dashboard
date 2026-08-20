@@ -13,7 +13,7 @@ import axiosInstance from "../../api/axiosInstance";
 const TARGETS = [
     { value: "users", label: "Users", icon: <PersonOutlineRounded />, accent: "blue" },
     { value: "drivers", label: "Drivers", icon: <LocalTaxiOutlined />, accent: "violet" },
-    { value: "all", label: "Everyone", icon: <GroupsRounded />, accent: "green" },
+    // { value: "all", label: "Everyone", icon: <GroupsRounded />, accent: "green" },
 ];
 
 const TITLE_LIMIT = 65;
