@@ -49,10 +49,10 @@ function Layout() {
 function App() {
   // ... (Your existing App component code)
   useEffect(() => {
-    console.log('API URL:', process.env.REACT_APP_API_URL);
-    console.log('REACT_APP_SOCKET_URL:', process.env.REACT_APP_SOCKET_URL);
-    console.log('REACT_APP_GOOGLE_CLOUD_API_KEY:', process.env.REACT_APP_GOOGLE_CLOUD_API_KEY);
-    console.log('REACT_APP_GOOGLE_MAP_ID:', process.env.REACT_APP_GOOGLE_MAP_ID);
+    // console.log('API URL:', process.env.REACT_APP_API_URL);
+    // console.log('REACT_APP_SOCKET_URL:', process.env.REACT_APP_SOCKET_URL);
+    // console.log('REACT_APP_GOOGLE_CLOUD_API_KEY:', process.env.REACT_APP_GOOGLE_CLOUD_API_KEY);
+    // console.log('REACT_APP_GOOGLE_MAP_ID:', process.env.REACT_APP_GOOGLE_MAP_ID);
   }, [])
   const { user } = useContext(AuthContext)
   return (
